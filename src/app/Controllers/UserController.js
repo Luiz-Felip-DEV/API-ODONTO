@@ -110,6 +110,20 @@ class UserController {
         }
     }
 
+    async postUser(req, res)
+    {
+        const email = req.body.email;
+
+        if(!email) {
+            return res.status(400).json({
+                error: true,
+                msgUser: "Parametro email é obrigatorio.",
+                msgOriginal: "Parametro email é obrigatorio."
+            });
+        }
+
+    }
+
 }
 
 export default new UserController();
