@@ -1,4 +1,5 @@
 import UserRepository from "../Repositories/UserRepository.js";
+import UserUtils from "../Utils/UserUtils.js";
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
@@ -28,11 +29,14 @@ class UserController {
             const row = await UserRepository.login(codUser, password);
 
             const secret = process.env.SECRET;
+            const tempoExpiracao = 30 * 60;
 
             const token = jwt.sign({
-                id: row[0].code_user,
+                id: row[0].id,
+                nro_prontuario: row[0].code_user,
+                perfil: row[0].perfil
             },
-            secret);
+            secret,{ expiresIn: tempoExpiracao });
 
             return res.status(400).json({
                 error: false,
@@ -112,16 +116,74 @@ class UserController {
 
     async postUser(req, res)
     {
-        const email = req.body.email;
+        const nome     = (req.body.nome) ? UserUtils.formatarNome(req.body.nome) : '';
+        const cpf      = (req.body.cpf) ? UserUtils.formatarCpf(req.body.cpf) : '';
+        const dataNasc = req.body.data_nasc;
+        const email    = req.body.email;
+        const telefone = (req.body.telefone) ? UserUtils.formatarTelefone(req.body.telefone) : '';
+        const endereco = req.body.endereco;
 
-        if(!email) {
+        let msg = '';
+
+        if (!nome) {
+            msg = 'Parametro nome é obrigatorio.';
+        }
+
+        if (!cpf) {
+            msg = 'Parametro cpf é obrigatorio.';
+        }
+
+        if (!dataNasc) {
+            msg = 'Parametro data_nasc é obrigatorio.'
+        }
+
+        if (!email) {
+            msg = 'Parametro email é obrigatorio.'
+        }
+
+        if (!telefone) {
+            msg = 'Parametro telefone é obrigatorio.'
+        }
+
+        if (!endereco) {
+            msg = 'Parametro endereco é obrigatorio.'
+        }
+
+        if(msg) {
             return res.status(400).json({
                 error: true,
-                msgUser: "Parametro email é obrigatorio.",
-                msgOriginal: "Parametro email é obrigatorio."
+                msgUser: msg,
+                msgOriginal: msg
             });
         }
 
+        if (!UserUtils.emailValido(email)) {
+            return res.status(400).json({
+                error: true,
+                msgUser: 'Email inválido, informe um email valido.',
+                msgOriginal: 'Email inválido, informe um email valido.'
+            });
+        }
+
+        const nroProntuario = await UserUtils.gerarNumeroProtuario();
+
+        const arrDados = {nro_protocolo: nroProntuario, nome: nome, cpf: cpf, dataNasc: dataNasc, email: email, telefone: telefone, endereco: endereco};
+
+        const row = await UserRepository.postUser(arrDados);
+        
+        if (!row) {
+            return res.status(400).json({
+                error: true,
+                msgUser: 'Algo deu errado ao inserir usuario, Por favor, tente novamente mais tarde.',
+                msgOriginal: 'Erro ao inserir usuario na tabela pacientes.'
+            });
+        }
+
+        return res.status(200).json({
+            error: false,
+            msgUser: 'Usuario cadastrado com sucesso.',
+            msgOriginal: 'Usuario cadastrado com sucesso.'
+        });
     }
 
 }
