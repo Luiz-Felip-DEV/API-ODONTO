@@ -1,0 +1,3 @@
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"01/11/2023 - 14:12:16"}
+{"level":"info","message":"Alteração de senha feita com sucesso. [UserController - putPassword]","timestamp":"01/11/2023 - 14:12:27"}
+{"level":"info","message":"Usuario cadastrado com sucesso. [UserController - postUser]","timestamp":"01/11/2023 - 14:13:26"}

@@ -82,6 +82,22 @@ class UserUtils {
         const dia = String(date.getDate()).padStart(2, '0');
         return `${ano}/${mes}/${dia}`;
     }
+
+    async retornarArrayFormatado(dados)
+    {
+        const nome     = (dados.nome) ? this.formatarNome(dados.nome) : '';
+        const cpf      = (dados.cpf) ? this.formatarCpf(dados.cpf) : '';
+        const dataNasc = dados.data_nasc;
+        const email    = dados.email;
+        const telefone = (dados.telefone) ? this.formatarTelefone(dados.telefone) : '';
+        const endereco = dados.endereco;
+
+        const nroProntuario = await this.gerarNumeroProtuario();
+
+        const arrDados = {nro_protocolo: nroProntuario, nome: nome, cpf: cpf, dataNasc: dataNasc, email: email, telefone: telefone, endereco: endereco};
+
+        return arrDados;
+    }
 }
 
 export default new UserUtils();

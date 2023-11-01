@@ -1,6 +1,7 @@
 import { Router } from "express";
-import UserController from "./app/Controllers/UserController.js"
-import Jwt from "./app/Utils/Jwt.js";
+import UserController from "./app/Controllers/UserController.js";
+import UserRequest from "./app/Requests/UserRequest.js";
+import Jwt from "./app/Utils/JwtUtils.js";
 
 const router  = Router();
 
@@ -8,12 +9,12 @@ const router  = Router();
 
 //POST
 
-router.post('/login', UserController.login);
-router.post('/user', Jwt.checkToken,UserController.postUser);
+router.post('/login', UserRequest.login,UserController.login);
+router.post('/user', Jwt.checkToken,UserRequest.postUser,UserController.postUser);
 
 //PUT
 
-router.put('/password', UserController.putPassword);
+router.put('/password', UserRequest.putPassword,UserController.putPassword);
 
 
 //DELETE

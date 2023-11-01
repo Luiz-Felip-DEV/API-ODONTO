@@ -7,7 +7,12 @@ class Jwt {
         const token      = authHeader && authHeader.split(" ")[1];
     
         if (!token) {
-            return res.status(401).json({msg: "Token não encontrado"});
+
+            return res.status(400).json({
+                error: true,
+                msgUser: "Token não encontrado",
+                msgOriginal: "Token não encontrado"
+            });
         }
     
         try {
