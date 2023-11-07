@@ -1,3 +1,16 @@
 {"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"01/11/2023 - 14:12:16"}
 {"level":"info","message":"Alteração de senha feita com sucesso. [UserController - putPassword]","timestamp":"01/11/2023 - 14:12:27"}
 {"level":"info","message":"Usuario cadastrado com sucesso. [UserController - postUser]","timestamp":"01/11/2023 - 14:13:26"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"07/11/2023 - 09:31:56"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"07/11/2023 - 10:06:02"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"07/11/2023 - 10:46:21"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"07/11/2023 - 12:47:58"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"07/11/2023 - 13:37:02"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"07/11/2023 - 13:57:53"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"07/11/2023 - 14:12:40"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"07/11/2023 - 14:14:47"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"07/11/2023 - 14:43:45"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"07/11/2023 - 14:50:54"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"07/11/2023 - 15:04:27"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"07/11/2023 - 16:33:55"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"07/11/2023 - 17:29:28"}

@@ -7,8 +7,10 @@ import LogsUtils from "../Utils/LogsUtils.js";
 class UserController {
 
     async login(req,res) {
+        const codUser  = req.body.cod_user;
+        const password = req.body.password
         try {
-            const row = await UserRepository.login(req.body.cod_user, req.body.password);
+            const row = await UserRepository.login(codUser, password);
 
             const secret = process.env.SECRET;
             const tempoExpiracao = 30 * 60;
@@ -71,7 +73,7 @@ class UserController {
             return res.status(400).json({
                 error: true,
                 msgUser: "Erro ao atualizar senha.",
-                msgOriginal: "Erro ao atualizar senha na tabela login."
+                msgOriginal: "Erro ao atualizar senha na tabela funcionario."
             });
         }
     }
