@@ -1,6 +1,6 @@
 import UserUtils from "../Utils/UserUtils.js";
 
-class UserRequest {
+class FuncionarioRequest {
 
     login(req, res, next)
     {
@@ -109,4 +109,4 @@ class UserRequest {
 
 }
 
-export default new UserRequest();
+export default new FuncionarioRequest();

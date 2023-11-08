@@ -1,8 +1,10 @@
 import { Router } from "express";
-import UserController from "./app/Controllers/UserController.js";
-import UserRequest from "./app/Requests/UserRequest.js";
+import FuncionarioController from "./app/Controllers/FuncionarioController.js";
+import FuncionarioRequest from "./app/Requests/FuncionarioRequest.js";
 import ClinicaController from "./app/Controllers/ClinicaController.js";
 import ClinicaRequest from "./app/Requests/ClinicaRequest.js";
+import PacienteController from "./app/Controllers/PacienteController.js";
+import PacienteRequest from "./app/Requests/PacienteRequest.js";
 import Jwt from "./app/Utils/JwtUtils.js";
 
 const router  = Router();
@@ -14,17 +16,17 @@ router.get('/horarios', Jwt.checkToken, ClinicaController.getHorarios);
 router.get('/procedimentos', Jwt.checkToken, ClinicaController.getProcedimentos);
 router.get('/clinicas-all', Jwt.checkToken, ClinicaController.getAllClinicas);
 router.get('/clinica', Jwt.checkToken, ClinicaRequest.getClinica, ClinicaController.getClinica);
+router.get('/get-user', Jwt.checkToken, PacienteRequest.getPaciente, PacienteController.getPaciente);
 
 //POST
 
-router.post('/login', UserRequest.login,UserController.login);
-router.post('/user', Jwt.checkToken,UserRequest.postUser,UserController.postUser);
-
+router.post('/login', FuncionarioRequest.login,FuncionarioController.login);
+router.post('/user', Jwt.checkToken,FuncionarioRequest.postUser,FuncionarioController.postUser);
 router.post('/clinica', Jwt.checkToken,ClinicaRequest.postClinica, ClinicaController.postClinica);
 
 //PUT
 
-router.put('/password', UserRequest.putPassword,UserController.putPassword);
+router.put('/password', FuncionarioRequest.putPassword,FuncionarioController.putPassword);
 router.put('/update-clinica', Jwt.checkToken, ClinicaRequest.putClinica, ClinicaController.putClinica);
 
 

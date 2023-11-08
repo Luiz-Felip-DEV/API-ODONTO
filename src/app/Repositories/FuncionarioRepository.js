@@ -1,6 +1,6 @@
 import conexao from "../DataBase/conexao.js";
 
-class UserRepository {
+class FuncionarioRepository {
 
     login(cod_user, password)
     {
@@ -43,4 +43,4 @@ class UserRepository {
         })
     }
 }
-export default new UserRepository();
+export default new FuncionarioRepository();

@@ -94,7 +94,7 @@ class UserUtils {
 
         const nroProntuario = await this.gerarNumeroProtuario();
 
-        const arrDados = {nro_protocolo: nroProntuario, nome: nome, cpf: cpf, dataNasc: dataNasc, email: email, telefone: telefone, endereco: endereco};
+        const arrDados = {nro_prontuario: nroProntuario, nome: nome, cpf: cpf, dataNasc: dataNasc, email: email, telefone: telefone, endereco: endereco};
 
         return arrDados;
     }

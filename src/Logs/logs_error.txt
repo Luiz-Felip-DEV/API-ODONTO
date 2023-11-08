@@ -2,3 +2,6 @@
 {"level":"error","message":"Usuario não encontrado na base de dados. [UserController - putPassword]","timestamp":"01/11/2023 - 14:12:50"}
 {"level":"error","message":"Erro ao efetuar login. [UserController - login]","timestamp":"07/11/2023 - 14:28:47"}
 {"level":"error","message":"Erro ao efetuar login. [UserController - login]","timestamp":"07/11/2023 - 14:32:37"}
+{"level":"error","message":"Erro ao efetuar login. [UserController - login]","timestamp":"08/11/2023 - 09:48:54"}
+{"level":"error","message":"Erro ao efetuar login. [UserController - login]","timestamp":"08/11/2023 - 09:48:56"}
+{"level":"error","message":"Erro ao cadastrar Usuario. [UserController - postUser]","timestamp":"08/11/2023 - 10:17:26"}

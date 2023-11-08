@@ -1,14 +1,16 @@
-import UserRepository from "../Repositories/UserRepository.js";
+import UserRepository from "../Repositories/FuncionarioRepository.js";
 import UserUtils from "../Utils/UserUtils.js";
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import LogsUtils from "../Utils/LogsUtils.js";
 
-class UserController {
+class FuncionarioController {
 
     async login(req,res) {
+
         const codUser  = req.body.cod_user;
         const password = req.body.password
+
         try {
             const row = await UserRepository.login(codUser, password);
 
@@ -106,4 +108,4 @@ class UserController {
 
 }
 
-export default new UserController();
+export default new FuncionarioController();
