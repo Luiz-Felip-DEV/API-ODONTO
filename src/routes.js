@@ -28,11 +28,13 @@ router.post('/clinica', Jwt.checkToken,ClinicaRequest.postClinica, ClinicaContro
 
 router.put('/password', FuncionarioRequest.putPassword,FuncionarioController.putPassword);
 router.put('/update-clinica', Jwt.checkToken, ClinicaRequest.putClinica, ClinicaController.putClinica);
+router.put('/update-paciente', Jwt.checkToken, PacienteRequest.putPaciente, PacienteController.putPaciente);
 
 
 //DELETE
 
 router.delete('/delete-clinica', Jwt.checkToken, ClinicaRequest.deleteClinica,ClinicaController.deleteClinica);
+router.delete('/delete-paciente', Jwt.checkToken, PacienteRequest.deletePaciente, PacienteController.deletePaciente);
 
 
 

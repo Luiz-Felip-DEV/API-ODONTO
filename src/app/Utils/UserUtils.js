@@ -98,6 +98,20 @@ class UserUtils {
 
         return arrDados;
     }
+
+    async retornarArrayFormatadoSemPt(dados)
+    {
+        const nome     = (dados.nome) ? this.formatarNome(dados.nome) : '';
+        const cpf      = (dados.cpf) ? this.formatarCpf(dados.cpf) : '';
+        const dataNasc = dados.data_nasc;
+        const email    = dados.email;
+        const telefone = (dados.telefone) ? this.formatarTelefone(dados.telefone) : '';
+        const endereco = dados.endereco;
+
+        const arrDados = {nome: nome, cpf: cpf, dataNasc: dataNasc, email: email, telefone: telefone, endereco: endereco};
+
+        return arrDados;
+    }
 }
 
 export default new UserUtils();

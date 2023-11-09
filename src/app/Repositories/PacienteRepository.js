@@ -18,6 +18,34 @@ class PacienteRepository {
             });
         });
     }
+
+    async putPaciente(id, dados)
+    {
+        const sql = 'UPDATE pacientes SET nome = ?, cpf = ?, datanasc = ?, email = ?, telefone = ?, endereco = ? WHERE id = ?';
+
+        return new Promise((resolve, reject) => {
+            conexao.query(sql,[dados.nome, dados.cpf, dados.dataNasc,dados.email,dados.telefone,dados.endereco, id],(error, result) => {
+                if (error) return reject(false);
+
+                const row = JSON.parse(JSON.stringify(result));
+                return resolve(row);
+            });
+        });
+    }
+
+    async deletePaciente(id)
+    {
+        const sql = 'DELETE FROM pacientes WHERE id = ?';
+
+        return new Promise((resolve, reject) => {
+            conexao.query(sql,id,(error, result) => {
+                if (error) return reject(false);
+
+                const row = JSON.parse(JSON.stringify(result));
+                return resolve(row);
+            });
+        });
+    }
 }
 
 export default new PacienteRepository();
