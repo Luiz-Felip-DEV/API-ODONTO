@@ -5,6 +5,8 @@ import ClinicaController from "./app/Controllers/ClinicaController.js";
 import ClinicaRequest from "./app/Requests/ClinicaRequest.js";
 import PacienteController from "./app/Controllers/PacienteController.js";
 import PacienteRequest from "./app/Requests/PacienteRequest.js";
+import AgendamentoController from "./app/Controllers/AgendamentoController.js";
+import AgendamentoRequest from "./app/Requests/AgendamentoRequest.js";
 import Jwt from "./app/Utils/JwtUtils.js";
 
 const router  = Router();
@@ -23,6 +25,7 @@ router.get('/get-user', Jwt.checkToken, PacienteRequest.getPaciente, PacienteCon
 router.post('/login', FuncionarioRequest.login,FuncionarioController.login);
 router.post('/user', Jwt.checkToken,FuncionarioRequest.postUser,FuncionarioController.postUser);
 router.post('/clinica', Jwt.checkToken,ClinicaRequest.postClinica, ClinicaController.postClinica);
+router.post('/agendamento', Jwt.checkToken, AgendamentoRequest.postAgendamento, AgendamentoController.postAgendamento);
 
 //PUT
 

@@ -4,7 +4,7 @@ class FuncionarioRepository {
 
     login(cod_user, password)
     {
-        const sql = "SELECT id,nome,code_user, perfil,cpf, telefone, endereco FROM funcionario where code_user = ? and password =  md5(?)";
+        const sql = "SELECT id,nome,cod_user, perfil,cpf FROM funcionario where cod_user = ? and password =  md5(?)";
     
         return new Promise((resolve, reject) => {
             conexao.query(sql,[cod_user,password],(error, result) => {
