@@ -3,6 +3,7 @@ import UserUtils from "../Utils/UserUtils.js";
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import LogsUtils from "../Utils/LogsUtils.js";
+import FuncionarioRepository from "../Repositories/FuncionarioRepository.js";
 
 class FuncionarioController {
 
@@ -104,6 +105,37 @@ class FuncionarioController {
                 msgOriginal: 'Erro ao inserir usuario na tabela pacientes'
             });
         }
+    }
+
+    async getAlunosClinica(req, res)
+    {
+        const idClinica = req.query.id_clinica;
+
+        try {
+            const arrDados = await FuncionarioRepository.getAlunosClinica(idClinica);
+
+            if (!arrDados[0]) {
+                return res.status(404).json({
+                    error: true,
+                    msgUser: 'Nenhum aluno encontrado, Por favor, tente novamente mais tarde.',
+                    msgOriginal: 'Nenhum aluno encontrado na tabela funcionario com id_clinica: ' + idClinica
+                });
+            }
+
+            return res.status(200).json({
+                error: false,
+                msgUser: null,
+                msgOriginal: null,
+                result: arrDados
+            });
+
+        } catch(error) {
+            return res.status(400).json({
+                error: true,
+                msgUser: 'Nenhum aluno encontrado, Por favor, tente novamente mais tarde.',
+                msgOriginal: 'Nenhum aluno encontrado na tabela funcionario com id_clinica: ' + idClinica
+            });
+        }   
     }
 
 }

@@ -24,9 +24,9 @@ class AgendamentoController {
 
         } catch(error) {
             return res.status(400).json({
-                error: false,
-                msgUser: "Agendamento cadastrado com sucesso.",
-                msgOriginal: null
+                error: true,
+                msgUser: "Erro ao cadastrar agendamento.",
+                msgOriginal: "Erro ao cadastrar agendamento. Caiu no catch"
             });
         }
     }

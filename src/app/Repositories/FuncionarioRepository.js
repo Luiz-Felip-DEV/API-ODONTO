@@ -42,5 +42,19 @@ class FuncionarioRepository {
             })
         })
     }
+
+    getAlunosClinica(clinica_id)
+    {
+        const sql = "SELECT id, nome, cod_user FROM funcionario WHERE perfil = 'Alu' and clinica_id = ?";
+
+        return new Promise((resolve, reject) => {
+            conexao.query(sql,clinica_id,(error, result) => {
+                if (error) return reject(false);
+
+                const row = JSON.parse(JSON.stringify(result));
+                return resolve(row);
+            })
+        })
+    }
 }
 export default new FuncionarioRepository();
