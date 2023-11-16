@@ -27,7 +27,7 @@ class FuncionarioController {
             delete row[0].id;
             
             await LogsUtils.gravarLog('info','Login efetuado com sucesso. [UserController - login]');
-            return res.status(400).json({
+            return res.status(200).json({
                 error: false,
                 msgUser: "Usuario com credenciais aceita.",
                 msgOriginal: "Usuario com credenciais aceita.",
