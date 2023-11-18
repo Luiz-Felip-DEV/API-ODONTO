@@ -16,7 +16,7 @@ class FuncionarioController {
             const row = await UserRepository.login(codUser, password);
 
             const secret = process.env.SECRET;
-            const tempoExpiracao = 30 * 60;
+            const tempoExpiracao = 4 * 60 * 60;
 
             const token = jwt.sign({
                 id: row[0].id,

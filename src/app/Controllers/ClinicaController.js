@@ -48,7 +48,7 @@ class ClinicaController {
                 row[i].nome_procedimento = row[i].nome + ' - ' + row[i].dia;
             }
         
-            return res.status(400).json({
+            return res.status(200).json({
                 error: false,
                 msgUser: null,
                 msgOriginal: null,
