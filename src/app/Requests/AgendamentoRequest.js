@@ -4,8 +4,8 @@ class AgendamentoRequest {
     {
         let msg = '';
 
-        if (!req.body.pagamento) {
-            msg = 'Parametro pagamento é obrigatorio.';
+        if (!req.body.data_consulta) {
+            msg = 'Parametro data_consulta é obrigatorio.';
         }
 
         if (!req.body.paciente_id) {

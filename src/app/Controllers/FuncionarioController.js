@@ -84,6 +84,7 @@ class FuncionarioController {
     async postUser(req, res)
     {
         const arrDados = await UserUtils.retornarArrayFormatado(req.body);
+        console.log(arrDados);
 
         try {
             await UserRepository.postUser(arrDados);
@@ -93,7 +94,8 @@ class FuncionarioController {
             return res.status(200).json({
                 error: false,
                 msgUser: 'Usuario cadastrado com sucesso.',
-                msgOriginal: 'Usuario cadastrado com sucesso.'
+                msgOriginal: 'Usuario cadastrado com sucesso.',
+                nro_prontuario: arrDados['nro_prontuario']
             });
 
         }catch(erro) {

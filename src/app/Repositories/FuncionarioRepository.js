@@ -31,6 +31,7 @@ class FuncionarioRepository {
     }
 
     postUser(dados) {
+
         const sql = "INSERT INTO pacientes SET ?";
 
         return new Promise((resolve, reject) => {

@@ -70,7 +70,7 @@ class ClinicaRepository {
                 return resolve(row);
             });
         });
-    }
+    }   
 
     async deleteClinica(id)
     {
