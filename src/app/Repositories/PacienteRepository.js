@@ -7,7 +7,7 @@ class PacienteRepository {
     {
         const verificacao = (!nro_prontuario) ? 'cpf = ?' : 'nro_prontuario = ?';
         const variavel    = (!nro_prontuario) ? UserUtils.formatarCpf(cpf) : nro_prontuario;
-        const sql         = "SELECT * FROM pacientes WHERE " + verificacao;
+        const sql         = "SELECT id, nro_prontuario, nome, cpf, DATE_FORMAT(datanasc, '%Y-%m-%d') as data_nascimento, email, telefone, endereco FROM pacientes WHERE " + verificacao;
     
         return new Promise((resolve, reject) => {
             conexao.query(sql,variavel,(error, result) => {

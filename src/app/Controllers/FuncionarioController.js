@@ -134,7 +134,7 @@ class FuncionarioController {
         } catch(error) {
             return res.status(400).json({
                 error: true,
-                msgUser: 'Nenhum aluno encontrado, Por favor, tente novamente mais tarde.',
+                msgUser: 'Erro ao buscar alunos, Por Favor, tente novamente mais tarde.',
                 msgOriginal: 'Nenhum aluno encontrado na tabela funcionario com id_clinica: ' + idClinica
             });
         }   

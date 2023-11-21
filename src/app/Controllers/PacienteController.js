@@ -11,7 +11,6 @@ class PacienteController {
       try {
 
         const row = await PacienteRepository.getPaciente(nroProntuario, cpf);
-        delete row[0].data_cadastro;
         
         if (!row[0]) {
             return res.status(404).json({
