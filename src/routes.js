@@ -19,7 +19,8 @@ router.get('/procedimentos', Jwt.checkToken, ClinicaController.getProcedimentos)
 router.get('/clinicas-all', Jwt.checkToken, ClinicaController.getAllClinicas);
 router.get('/clinica', Jwt.checkToken, ClinicaRequest.getClinica, ClinicaController.getClinica);
 router.get('/get-user', Jwt.checkToken, PacienteRequest.getPaciente, PacienteController.getPaciente);
-router.get('/get-alunos-clinica', Jwt.checkToken, FuncionarioRequest.getAlunosClinica, FuncionarioController.getAlunosClinica)
+router.get('/get-alunos-clinica', Jwt.checkToken, FuncionarioRequest.getAlunosClinica, FuncionarioController.getAlunosClinica);
+// router.get('/agendamento', Jwt.checkToken, AgendamentoRequest.getAgendamento, AgendamentoController.getAgendamento);
 
 //POST
 
@@ -33,6 +34,8 @@ router.post('/agendamento', Jwt.checkToken, AgendamentoRequest.postAgendamento, 
 router.put('/password', FuncionarioRequest.putPassword,FuncionarioController.putPassword);
 router.put('/update-clinica', Jwt.checkToken, ClinicaRequest.putClinica, ClinicaController.putClinica);
 router.put('/update-paciente', Jwt.checkToken, PacienteRequest.putPaciente, PacienteController.putPaciente);
+router.put('/status-pagamento', Jwt.checkToken, AgendamentoRequest.statusPagamento, AgendamentoController.statusPagamento);
+router.put('/status-consulta', Jwt.checkToken,AgendamentoRequest.statusConsulta, AgendamentoController.statusConsulta);
 
 
 //DELETE

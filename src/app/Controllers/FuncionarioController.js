@@ -84,7 +84,6 @@ class FuncionarioController {
     async postUser(req, res)
     {
         const arrDados = await UserUtils.retornarArrayFormatado(req.body);
-        console.log(arrDados);
 
         try {
             await UserRepository.postUser(arrDados);

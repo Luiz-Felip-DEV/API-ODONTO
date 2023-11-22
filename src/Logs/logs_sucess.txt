@@ -25,3 +25,5 @@
 {"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"09/11/2023 - 11:07:28"}
 {"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"09/11/2023 - 11:45:04"}
 {"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"13/11/2023 - 16:40:03"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"22/11/2023 - 08:31:37"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"22/11/2023 - 15:58:22"}
