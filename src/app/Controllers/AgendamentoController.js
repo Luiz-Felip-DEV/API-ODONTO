@@ -1,5 +1,6 @@
 import AgendamentoRepository from "../Repositories/AgendamentoRepository.js";
 import AgendamentoUtils from "../Utils/AgendamentoUtils.js";
+import UserUtils from "../Utils/UserUtils.js";
 
 class AgendamentoController {
     
@@ -107,6 +108,29 @@ class AgendamentoController {
             error: false,
             msgUser: "Status de consulta atualizado com sucesso.",
             msgOriginal: null
+        });
+    }
+
+    async getAgendamento(req, res)
+    {
+        const nroProntuario = (req.query.nro_prontuario) ? req.query.nro_prontuario : '';
+        const cpf           = (req.query.cpf) ? UserUtils.formatarCpf(req.query.cpf) : '';
+
+        const arrAgendamento = await AgendamentoRepository.getAgendamento(nroProntuario, cpf);
+        
+        if (!arrAgendamento[0]) {
+            return res.status(400).json({
+                error: true,
+                msgUser: "Nenhum agendamento encontrado, Por Favor tente novamente mais tarde.",
+                msgOriginal: "Nenhum agendamento encontrado na tabela agendamento"
+            });
+        }
+
+        return res.status(200).json({
+            error: false,
+            msgUser: null,
+            msgOriginal: null,
+            result: arrAgendamento
         });
     }
 }
