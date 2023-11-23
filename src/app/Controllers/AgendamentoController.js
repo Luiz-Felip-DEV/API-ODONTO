@@ -133,6 +133,28 @@ class AgendamentoController {
             result: arrAgendamento
         });
     }
+
+    async getAgendamentoData(req, res)
+    {
+        const data = await AgendamentoUtils.getDataAtual();
+        
+        const arrAgendamento = await AgendamentoRepository.getAgendamentoData(data);
+
+        if (!arrAgendamento[0]) {
+            return res.status(400).json({
+                error: true,
+                msgUser: "Nenhum agendamento diario encontrado, Por Favor tente novamente mais tarde.",
+                msgOriginal: "Nenhum agendamento encontrado na tabela agendamento"
+            });
+        }
+
+        return res.status(200).json({
+            error: false,
+            msgUser: null,
+            msgOriginal: null,
+            result: arrAgendamento
+        });
+    }
 }
 
 export default new AgendamentoController();

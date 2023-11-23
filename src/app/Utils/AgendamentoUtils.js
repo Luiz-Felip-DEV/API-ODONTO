@@ -12,6 +12,21 @@ class AgendamentoUtils {
 
         return arrDados;
     }
+
+    async getDataAtual()
+    {
+        const dataAtual = new Date();
+
+        const ano = dataAtual.getFullYear();
+        const mes = (dataAtual.getMonth() + 1).toString().padStart(2, '0'); // O mês é baseado em zero, então é necessário adicionar 1
+        const dia = dataAtual.getDate().toString().padStart(2, '0');
+
+        // Formatar a data como "ano-mes-dia"
+        const dataFormatada = `${ano}-${mes}-${dia}`;
+
+        return dataFormatada;
+    }
+
 }
 
 export default new AgendamentoUtils();

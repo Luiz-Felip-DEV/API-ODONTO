@@ -27,3 +27,7 @@
 {"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"13/11/2023 - 16:40:03"}
 {"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"22/11/2023 - 08:31:37"}
 {"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"22/11/2023 - 15:58:22"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"23/11/2023 - 08:06:24"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"23/11/2023 - 09:07:26"}
+{"level":"info","message":"Usuario cadastrado com sucesso. [UserController - postUser]","timestamp":"23/11/2023 - 09:07:39"}
+{"level":"info","message":"Login efetuado com sucesso. [UserController - login]","timestamp":"23/11/2023 - 13:50:43"}

@@ -21,6 +21,7 @@ router.get('/clinica', Jwt.checkToken, ClinicaRequest.getClinica, ClinicaControl
 router.get('/get-user', Jwt.checkToken, PacienteRequest.getPaciente, PacienteController.getPaciente);
 router.get('/get-alunos-clinica', Jwt.checkToken, FuncionarioRequest.getAlunosClinica, FuncionarioController.getAlunosClinica);
 router.get('/agendamento', Jwt.checkToken, AgendamentoController.getAgendamento);
+router.get('/agendamentos-data', Jwt.checkToken, AgendamentoController.getAgendamentoData);
 
 //POST
 

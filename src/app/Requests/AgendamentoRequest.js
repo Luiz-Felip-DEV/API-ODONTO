@@ -75,8 +75,7 @@ class AgendamentoRequest {
         }
 
         next();
-    }
-    
+    }    
 }
 
 export default new AgendamentoRequest();
