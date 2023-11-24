@@ -44,12 +44,12 @@ class FuncionarioRepository {
         })
     }
 
-    getAlunosClinica(clinica_id)
+    getAlunosClinica(periodo)
     {
-        const sql = "SELECT id, nome, cod_user FROM funcionario WHERE perfil = 'Alu' and clinica_id = ?";
+        const sql = "SELECT id, nome, cod_user FROM funcionario WHERE perfil = 'Alu' and periodo = ?";
 
         return new Promise((resolve, reject) => {
-            conexao.query(sql,clinica_id,(error, result) => {
+            conexao.query(sql,periodo,(error, result) => {
                 if (error) return reject(false);
 
                 const row = JSON.parse(JSON.stringify(result));

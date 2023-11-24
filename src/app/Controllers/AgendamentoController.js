@@ -75,7 +75,7 @@ class AgendamentoController {
 
     async statusConsulta(req,res) 
     {
-        const statusConsulta = req.body.status;
+        const statusConsulta  = req.body.status;
         const agendamentoId   = req.query.agendamento_id;
         const verify          = false;
 
@@ -153,6 +153,39 @@ class AgendamentoController {
             msgUser: null,
             msgOriginal: null,
             result: arrAgendamento
+        });
+    }
+
+    async deleteAgendamento(req,res)
+    {
+        const id     = req.query.id;
+        let verify   = false;
+
+        try {
+
+            const row = await AgendamentoRepository.deleteAgendamento(id);
+            verify    = (row['affectedRows'] == 0) ? true : false;
+
+        } catch(error) {
+            return res.status(400).json({
+                error: true,
+                msgUser: "Erro ao excluir agendamento, Por Favor tente novamente mais tarde.",
+                msgOriginal: "Erro ao deletar agendamento, agendamento não encontrado na tabela agendamento"
+            });
+        }
+        
+        if (verify) {
+            return res.status(400).json({
+                error: true,
+                msgUser: "Agendamento não encontrado, Por Favor tente novamente mais tarde.",
+                msgOriginal: "Erro ao deletar agendamento, agendamento não encontrado na tabela agendamento"
+            });
+        }
+
+        return res.status(200).json({
+            error: false,
+            msgUser: "Agendamento excluido com sucesso.",
+            msgOriginal: null
         });
     }
 }

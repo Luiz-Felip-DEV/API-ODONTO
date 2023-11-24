@@ -110,16 +110,16 @@ class FuncionarioController {
 
     async getAlunosClinica(req, res)
     {
-        const idClinica = req.query.id_clinica;
+        const periodo = req.query.periodo;
 
         try {
-            const arrDados = await FuncionarioRepository.getAlunosClinica(idClinica);
+            const arrDados = await FuncionarioRepository.getAlunosClinica(periodo);
 
             if (!arrDados[0]) {
                 return res.status(404).json({
                     error: true,
                     msgUser: 'Nenhum aluno encontrado, Por favor, tente novamente mais tarde.',
-                    msgOriginal: 'Nenhum aluno encontrado na tabela funcionario com id_clinica: ' + idClinica
+                    msgOriginal: 'Nenhum aluno encontrado na tabela funcionario com periodo: ' + periodo
                 });
             }
 
@@ -134,7 +134,7 @@ class FuncionarioController {
             return res.status(400).json({
                 error: true,
                 msgUser: 'Erro ao buscar alunos, Por Favor, tente novamente mais tarde.',
-                msgOriginal: 'Nenhum aluno encontrado na tabela funcionario com id_clinica: ' + idClinica
+                msgOriginal: 'Nenhum aluno encontrado na tabela funcionario com periodo: ' + periodo
             });
         }   
     }

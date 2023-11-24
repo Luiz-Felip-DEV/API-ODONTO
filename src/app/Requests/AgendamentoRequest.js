@@ -75,7 +75,20 @@ class AgendamentoRequest {
         }
 
         next();
-    }    
+    }
+    
+    deleteAgendamento(req, res, next)
+    {
+        if (!req.query.id) {
+            return res.status(400).json({
+                error: true,
+                msgUser: 'Parametro id é obrigatorio.',
+                msgOriginal: 'Parametro status é obrigatorio.'
+            });
+        }
+
+        next();
+    }
 }
 
 export default new AgendamentoRequest();

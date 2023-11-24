@@ -43,6 +43,7 @@ router.put('/status-consulta', Jwt.checkToken,AgendamentoRequest.statusConsulta,
 
 router.delete('/delete-clinica', Jwt.checkToken, ClinicaRequest.deleteClinica,ClinicaController.deleteClinica);
 router.delete('/delete-paciente', Jwt.checkToken, PacienteRequest.deletePaciente, PacienteController.deletePaciente);
+router.delete('/delete-agendamento', Jwt.checkToken, AgendamentoRequest.deleteAgendamento, AgendamentoController.deleteAgendamento);
 
 
 

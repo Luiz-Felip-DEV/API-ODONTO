@@ -108,11 +108,11 @@ class FuncionarioRequest {
 
     getAlunosClinica(req, res, next)
     {
-        if (!req.query.id_clinica) {
+        if (!req.query.periodo) {
             return res.status(400).json({
                 error: true,
-                msgUser: 'Parametro id_clinica é obrigatorio.',
-                msgOriginal: 'Parametro id_clinica é obrigatorio.'
+                msgUser: 'Parametro periodo é obrigatorio.',
+                msgOriginal: 'Parametro periodo é obrigatorio.'
             });
         }
 
