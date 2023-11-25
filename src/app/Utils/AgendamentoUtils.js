@@ -27,6 +27,12 @@ class AgendamentoUtils {
         return dataFormatada;
     }
 
+
+    async formatarDia(dia)
+    {
+        return dia.charAt(0).toUpperCase() + dia.slice(1);
+    }
+
 }
 
 export default new AgendamentoUtils();

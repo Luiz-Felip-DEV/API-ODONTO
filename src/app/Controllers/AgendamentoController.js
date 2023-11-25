@@ -3,6 +3,75 @@ import AgendamentoUtils from "../Utils/AgendamentoUtils.js";
 import UserUtils from "../Utils/UserUtils.js";
 
 class AgendamentoController {
+
+    async getDatas(req, res)
+    {
+        const dia      = await AgendamentoUtils.formatarDia(req.query.dia);
+        const arrDatas = [];
+
+        let param1, param2, param3, param4, param5 = '';
+
+        if (dia == 'Segunda') {
+            param1 = 7;
+            param2 = 14;
+            param3 = 21;
+            param4 = 28;
+            param5 = 35;
+        }
+
+        if (dia == 'Terça') {
+            param1 = 8;
+            param2 = 15;
+            param3 = 22;
+            param4 = 29;
+            param5 = 36;
+        }
+
+        if (dia == 'Quarta') {
+            param1 = 9;
+            param2 = 16;
+            param3 = 23;
+            param4 = 30;
+            param5 = 37;
+        }
+
+        if (dia == 'Quinta') {
+            param1 = 10;
+            param2 = 17;
+            param3 = 24;
+            param4 = 31;
+            param5 = 38;
+        }
+
+        if (dia == 'Sexta') {
+            param1 = 11;
+            param2 = 18;
+            param3 = 25;
+            param4 = 32;
+            param5 = 39;
+        }
+
+        const arrResult = await AgendamentoRepository.getDatas(param1, param2, param3, param4, param5);
+
+        if (!arrResult[0]) {
+            return res.status(400).json({
+                error: true,
+                msgUser: "Erro ao trazer datas.",
+                msgOriginal: "Erro ao trazer datas, retorno vazio"
+            });
+        }
+
+        for (const elemento of arrResult) {
+            arrDatas.push(elemento.proxima_segunda)
+          }
+        
+          return res.status(200).json({
+            error: false,
+            msgUser: null,
+            msgOriginal: null,
+            result: arrDatas
+        });
+    }
     
     async postAgendamento(req, res)
     {

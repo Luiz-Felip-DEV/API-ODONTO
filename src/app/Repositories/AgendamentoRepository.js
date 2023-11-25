@@ -2,6 +2,28 @@ import conexao from "../DataBase/conexao.js";
 
 class AgendamentoRepository {
 
+    async getDatas(param1, param2, param3, param4, param5)
+    {
+        const sql = "SELECT DATE_FORMAT(CURDATE() + INTERVAL (? - WEEKDAY(CURDATE())) DAY, '%Y-%m-%d') AS proxima_segunda" +
+                                        ' UNION' +
+                                    " SELECT DATE_FORMAT( CURDATE() + INTERVAL (? - WEEKDAY(CURDATE())) DAY, '%Y-%m-%d')" +
+                                        ' UNION' +
+                                    " SELECT DATE_FORMAT( CURDATE() + INTERVAL (? - WEEKDAY(CURDATE())) DAY,'%Y-%m-%d')" +
+                                        ' UNION' +
+                                    " SELECT DATE_FORMAT( CURDATE() + INTERVAL (? - WEEKDAY(CURDATE())) DAY,'%Y-%m-%d')" +
+                                        ' UNION' +
+                                    " SELECT DATE_FORMAT( CURDATE() + INTERVAL (? - WEEKDAY(CURDATE())) DAY, '%Y-%m-%d')";
+
+        return new Promise((resolve, reject) => {
+            conexao.query(sql,[param1, param2, param3, param4, param5],(error, result) => {
+                if (error) return reject(false);
+
+                const row = JSON.parse(JSON.stringify(result));
+                return resolve(row);
+            });
+        });
+    }
+
     async postAgendamento(dados)
     {
         const sql = 'INSERT INTO agendamento SET ?';

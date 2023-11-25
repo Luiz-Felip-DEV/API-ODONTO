@@ -12,8 +12,8 @@ class ClinicaRequest {
             msg = 'Parametro periodo é obrigatorio.';
         }
 
-        if (!req.body.horario) {
-            msg = 'Parametro horario é obrigatorio.';
+        if (!req.body.turno) {
+            msg = 'Parametro turno é obrigatorio.';
         }
 
         if (!req.body.procedimento_id) {

@@ -14,7 +14,7 @@ const router  = Router();
 //GET
 
 router.get('/periodos', Jwt.checkToken, ClinicaController.getPeriodos);
-router.get('/horarios', Jwt.checkToken, ClinicaController.getHorarios);
+router.get('/turnos', Jwt.checkToken, ClinicaController.getTurnos);
 router.get('/procedimentos', Jwt.checkToken, ClinicaController.getProcedimentos);
 router.get('/clinicas-all', Jwt.checkToken, ClinicaController.getAllClinicas);
 router.get('/clinica', Jwt.checkToken, ClinicaRequest.getClinica, ClinicaController.getClinica);
@@ -22,6 +22,7 @@ router.get('/get-user', Jwt.checkToken, PacienteRequest.getPaciente, PacienteCon
 router.get('/get-alunos-clinica', Jwt.checkToken, FuncionarioRequest.getAlunosClinica, FuncionarioController.getAlunosClinica);
 router.get('/agendamento', Jwt.checkToken, AgendamentoController.getAgendamento);
 router.get('/agendamentos-data', Jwt.checkToken, AgendamentoController.getAgendamentoData);
+router.get('/datas', Jwt.checkToken, AgendamentoRequest.getDatas, AgendamentoController.getDatas);
 
 //POST
 

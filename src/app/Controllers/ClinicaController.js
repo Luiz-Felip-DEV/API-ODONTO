@@ -21,12 +21,12 @@ class ClinicaController {
         });
     }
 
-    async getHorarios(req,res)
+    async getTurnos(req,res)
     {
         const horarios = {
-            0:'08:00',
-            1:'15:00',
-            2:'19:00'
+            0:'Manhã',
+            1:'Tarde',
+            2:'Noite'
         };
 
         return res.status(200).json({

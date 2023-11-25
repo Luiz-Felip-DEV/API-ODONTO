@@ -1,5 +1,18 @@
 class AgendamentoRequest {
 
+    getDatas(req, res, next)
+    {
+        if (!req.query.dia) {
+            return res.status(400).json({
+                error: true,
+                msgUser: 'Parametro dia é obrigatorio.',
+                msgOriginal: 'Parametro dia é obrigatorio.'
+            });
+        }
+
+        next();
+    }
+
     postAgendamento(req, res, next)
     {
         let msg = '';
