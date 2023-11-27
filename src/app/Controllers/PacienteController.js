@@ -16,6 +16,8 @@ class PacienteController {
         verify   = (!arrDados[0]) ? true : false;
 
       } catch(error) {
+        console.error(error.message);
+        console.log(error.stack);
         return res.status(400).json({
             error: true,
             msgUser: "Erro ao buscar paciente, Por Favor, Tente Novamente mais tarde.",
@@ -52,6 +54,8 @@ class PacienteController {
         verify    = (!arrResult[0]) ? true : false;
 
       } catch (error) {
+        console.error(error.message);
+        console.log(error.stack);
         return res.status(400).json({
             error: true,
             msgUser: "Erro ao atualizar dados do paciente, Por Favor, Tente Novamente mais tarde.",
@@ -86,6 +90,8 @@ class PacienteController {
         verify    = (row.affectedRows != 1) ? true : false;
 
       }catch (error) {
+        console.error(error.message);
+        console.log(error.stack);
         return res.status(400).json({
           error: true,
           msgUser: "Erro ao deletar paciente, Por Favor, Tente Novamente mais tarde.",

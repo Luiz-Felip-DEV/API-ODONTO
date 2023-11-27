@@ -18,6 +18,8 @@ class FuncionarioController {
             verify   = (!arrDados[0]) ? true : false;
 
         } catch (error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: "Dados incorretos.",
@@ -67,6 +69,8 @@ class FuncionarioController {
             verify          = (arrResult.affectedRows != 1) ? true : false;
 
         } catch (error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: "Erro ao atualizar senha.",
@@ -97,7 +101,9 @@ class FuncionarioController {
 
             await UserRepository.postUser(arrDados);
             
-        }catch(erro) {
+        }catch(error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: 'Algo deu errado ao inserir usuario, Por favor, tente novamente mais tarde.',

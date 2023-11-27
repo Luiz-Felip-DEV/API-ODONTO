@@ -7,6 +7,8 @@ import PacienteController from "./app/Controllers/PacienteController.js";
 import PacienteRequest from "./app/Requests/PacienteRequest.js";
 import AgendamentoController from "./app/Controllers/AgendamentoController.js";
 import AgendamentoRequest from "./app/Requests/AgendamentoRequest.js";
+import HistoricoController from "./app/Controllers/HistoricoController.js";
+import HistoricoRequest from "./app/Requests/HistoricoRequest.js";
 import Jwt from "./app/Utils/JwtUtils.js";
 
 const router  = Router();
@@ -24,6 +26,8 @@ router.get('/agendamento', Jwt.checkToken, AgendamentoController.getAgendamento)
 router.get('/agendamentos-data', Jwt.checkToken, AgendamentoController.getAgendamentoData);
 router.get('/datas', Jwt.checkToken, AgendamentoRequest.getDatas, AgendamentoController.getDatas);
 router.get('/horario', Jwt.checkToken, AgendamentoRequest.getHorario, AgendamentoController.getHorario);
+router.get('/historico-clinica', Jwt.checkToken, HistoricoRequest.getHistoricoClinica, HistoricoController.getHistoricoClinica);
+router.get('/historico-paciente', Jwt.checkToken, HistoricoController.getHistoricoPaciente);
 
 //POST
 

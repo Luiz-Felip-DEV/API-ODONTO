@@ -59,6 +59,8 @@ class AgendamentoController {
             verify    = (!arrResult[0]) ? true : false;
 
         } catch (error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: "Erro ao trazer datas, Por Favor tente novamente mais tarde.",
@@ -99,6 +101,8 @@ class AgendamentoController {
             verify     = (!arrClinica[0]) ? true : false;
 
         } catch (error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: "Erro ao buscar clinica, Por Favor tente novamente mais tarde.",
@@ -161,6 +165,8 @@ class AgendamentoController {
             verify   = (!arrDados[0]) ? true : false;
 
         } catch(error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: 'Erro ao buscar alunos, Por Favor, tente novamente mais tarde.',
@@ -193,6 +199,8 @@ class AgendamentoController {
             await AgendamentoRepository.postAgendamento(arrDados);
 
         } catch(error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: "Erro ao cadastrar agendamento.",
@@ -219,6 +227,8 @@ class AgendamentoController {
             verify          = (arrResult.affectedRows != 1) ? true : false;
             
         } catch(error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: "Erro ao atualizar pagamento, Por Favor tente novamente mais tarde.",
@@ -253,6 +263,8 @@ class AgendamentoController {
             verify          = (arrResult.affectedRows != 1) ? true : false;
     
         } catch(error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: "Erro ao atualizar consulta, Por Favor tente novamente mais tarde.",
@@ -288,6 +300,8 @@ class AgendamentoController {
             verify         = (!arrAgendamento[0]) ? true : false;
 
         } catch (error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: "Erro ao Buscar Agendamento, Por Favor tente novamente mais tarde.",
@@ -325,6 +339,8 @@ class AgendamentoController {
             verify         = (!arrAgendamento[0]) ? true : false;
 
         } catch (error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: "Erro ao buscar agendamento diario, Por Favor tente novamente mais tarde.",
@@ -359,6 +375,8 @@ class AgendamentoController {
             verify    = (row.affectedRows != 1) ? true : false;
 
         } catch(error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: "Erro ao excluir agendamento, Por Favor tente novamente mais tarde.",

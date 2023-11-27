@@ -48,6 +48,8 @@ class ClinicaController {
             verify   = (!arrDados[0]) ? true : false;
 
         } catch(error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: "Erro ao trazer procedimentos, Por Favor tente novamente mais tarde.",
@@ -85,7 +87,8 @@ class ClinicaController {
             await ClinicaRepository.postClinica(req.body);
 
         } catch(error) {
-
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: "Erro ao cadastrar clinica.",
@@ -111,7 +114,8 @@ class ClinicaController {
             verify   = (!arrDados[0]) ? true : false;
 
         } catch(error) {
-
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: 'Erro ao buscar clinicas, Por Favor tente novamente mais tarde.',
@@ -142,11 +146,14 @@ class ClinicaController {
         let verify   = false
 
         try {
-            
+            console.error(error.message);
+            console.log(error.stack);
             arrDados = await ClinicaRepository.getClinica(id);
             verify   = (!arrDados[0]) ? true : false;
 
         } catch(error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: "Erro ao buscar clinica, Por Favor, Tente mais Tarde.",
@@ -185,6 +192,8 @@ class ClinicaController {
             verify    = (row.affectedRows != 1) ? true : false;
 
         } catch(error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: "Erro ao atualizar dados da clinica, Por Favor, Tente mais Tarde.",
@@ -210,15 +219,16 @@ class ClinicaController {
     async deleteClinica(req, res)
     {
         const id       = req.query.id;
-        let arrDados   = [];
         let verify     = false;
 
         try {
 
-            arrDados = await ClinicaRepository.deleteClinica(id);
-            verify   = (row.affectedRows != 0) ? true : false;
+            const arrDados = await ClinicaRepository.deleteClinica(id);
+            verify         = (arrDados.affectedRows != 1) ? true : false;
 
         } catch(error) {
+            console.error(error.message);
+            console.log(error.stack);
             return res.status(400).json({
                 error: true,
                 msgUser: "Erro ao deletar clinica, Por Favor, Tente Novamente mais tarde.",
