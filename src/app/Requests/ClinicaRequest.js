@@ -33,17 +33,12 @@ class ClinicaRequest {
 
     getClinica(req, res, next)
     {
-        let msg = '';
 
-        if (!req.query.id) {
-            msg = 'Parametro id é obrigatorio.';
-        }
-
-        if(msg) {
+        if(!req.query.id) {
             return res.status(400).json({
                 error: true,
-                msgUser: msg,
-                msgOriginal: msg
+                msgUser: 'Parametro id é obrigatorio.',
+                msgOriginal: 'Parametro id é obrigatorio.'
             });
         }
 
@@ -62,7 +57,7 @@ class ClinicaRequest {
             msg = 'Parametro periodo é obrigatorio.';
         }
 
-        if(!req.body.horario) {
+        if(!req.body.turno) {
             msg = 'Parametro horario é obrigatorio.';
         }
 

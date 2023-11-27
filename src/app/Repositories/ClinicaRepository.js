@@ -60,10 +60,10 @@ class ClinicaRepository {
 
     async putClinica(id, dados)
     {
-        const sql = "UPDATE clinica SET nome = ?, periodo = ?, horario = ? WHERE id = ? ";
+        const sql = "UPDATE clinica SET nome = ?, periodo = ?, turno = ? WHERE id = ? ";
     
         return new Promise((resolve, reject) => {
-            conexao.query(sql,[dados.nome,dados.periodo,dados.horario, id],(error, result) => {
+            conexao.query(sql,[dados.nome,dados.periodo,dados.turno, id],(error, result) => {
                 if (error) return reject(false);
 
                 const row = JSON.parse(JSON.stringify(result));

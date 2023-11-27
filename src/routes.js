@@ -19,10 +19,11 @@ router.get('/procedimentos', Jwt.checkToken, ClinicaController.getProcedimentos)
 router.get('/clinicas-all', Jwt.checkToken, ClinicaController.getAllClinicas);
 router.get('/clinica', Jwt.checkToken, ClinicaRequest.getClinica, ClinicaController.getClinica);
 router.get('/get-user', Jwt.checkToken, PacienteRequest.getPaciente, PacienteController.getPaciente);
-router.get('/get-alunos-clinica', Jwt.checkToken, FuncionarioRequest.getAlunosClinica, FuncionarioController.getAlunosClinica);
+router.get('/get-alunos-clinica', Jwt.checkToken, AgendamentoRequest.getAlunosClinica, AgendamentoController.getAlunosClinica);
 router.get('/agendamento', Jwt.checkToken, AgendamentoController.getAgendamento);
 router.get('/agendamentos-data', Jwt.checkToken, AgendamentoController.getAgendamentoData);
 router.get('/datas', Jwt.checkToken, AgendamentoRequest.getDatas, AgendamentoController.getDatas);
+router.get('/horario', Jwt.checkToken, AgendamentoRequest.getHorario, AgendamentoController.getHorario);
 
 //POST
 

@@ -13,9 +13,39 @@ class AgendamentoRequest {
         next();
     }
 
+    getHorario(req, res, next)
+    {
+        if (!req.query.id_procedimento) {
+            return res.status(400).json({
+                error: true,
+                msgUser: 'Parametro id_procedimento é obrigatorio.',
+                msgOriginal: 'Parametro id_procedimento é obrigatorio.'
+            });
+        }
+
+        next();
+    }
+
+    getAlunosClinica(req, res, next)
+    {
+        if (!req.query.periodo) {
+            return res.status(400).json({
+                error: true,
+                msgUser: 'Parametro periodo é obrigatorio.',
+                msgOriginal: 'Parametro periodo é obrigatorio.'
+            });
+        }
+
+        next();
+    }
+
     postAgendamento(req, res, next)
     {
         let msg = '';
+
+        if (!req.body.horario_consulta) {
+            msg = 'Parametro horario_consulta é obrigatorio.';
+        }
 
         if (!req.body.data_consulta) {
             msg = 'Parametro data_consulta é obrigatorio.';

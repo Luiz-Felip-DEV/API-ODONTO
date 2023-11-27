@@ -24,6 +24,34 @@ class AgendamentoRepository {
         });
     }
 
+    async getHorario(idProcedimento)
+    {
+        const sql = 'SELECT * FROM clinica WHERE procedimento_id = ?';
+
+        return new Promise((resolve, reject) => {
+            conexao.query(sql,idProcedimento,(error, result) => {
+                if (error) return reject(false);
+
+                const row = JSON.parse(JSON.stringify(result));
+                return resolve(row);
+            });
+        });
+    }
+
+    getAlunosClinica(periodo)
+    {
+        const sql = "SELECT id, nome, cod_user FROM funcionario WHERE perfil = 'Alu' and periodo = ?";
+
+        return new Promise((resolve, reject) => {
+            conexao.query(sql,periodo,(error, result) => {
+                if (error) return reject(false);
+
+                const row = JSON.parse(JSON.stringify(result));
+                return resolve(row);
+            })
+        })
+    }
+
     async postAgendamento(dados)
     {
         const sql = 'INSERT INTO agendamento SET ?';
@@ -68,7 +96,8 @@ class AgendamentoRepository {
 
     async getAgendamento(nroProntuario, cpf)
     {
-        const sql = "SELECT T1.id AS id_agendamento,T4.nro_prontuario, T4.nome, T2.nome AS procedimento, DATE_FORMAT(T1.data_consulta, '%Y-%m-%d') AS data_consulta, " + ' T1.status_pagamento, T1.status_consulta ,T2.horario, T3.nome AS aluno FROM agendamento T1 ' + 
+        const sql = "SELECT T1.id AS id_agendamento, T4.nro_prontuario, T4.nome, T2.nome AS procedimento,  DATE_FORMAT(T1.data_consulta, '%Y-%m-%d') AS data, T1.horario_consulta horario, T2.turno, T1.status_pagamento, T1.status_consulta , T3.nome AS aluno, T3.cod_user cod_alu " +
+                                                    'FROM agendamento T1 ' + 
                                                             ' INNER JOIN clinica T2' +
                                                                 ' ON (T1.clinica_id = T2.id)' +
                                                             ' INNER JOIN funcionario T3' +
@@ -89,7 +118,8 @@ class AgendamentoRepository {
 
     async getAgendamentoData(dataConsulta)
     {
-        const sql = "SELECT T4.nro_prontuario, T4.nome, T2.nome AS procedimento, DATE_FORMAT(T1.data_consulta, '%Y-%m-%d') AS data_consulta, " + ' T1.status_pagamento, T1.status_consulta ,T2.horario, T3.nome AS aluno FROM agendamento T1 ' + 
+        const sql =  "SELECT T4.nro_prontuario, T4.nome, T2.nome procedimento, DATE_FORMAT(T1.data_consulta, '%Y-%m-%d') data_consulta, T1.status_pagamento, T1.status_consulta, T1.horario_consulta, T3.nome aluno, T3.cod_user cod_alu " + 
+                                                'FROM agendamento T1 ' +
                                                             ' INNER JOIN clinica T2' +
                                                                 ' ON (T1.clinica_id = T2.id)' +
                                                             ' INNER JOIN funcionario T3' +
