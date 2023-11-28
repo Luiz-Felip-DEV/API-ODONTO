@@ -85,6 +85,20 @@ class ClinicaRepository {
             });
         });
     }
+
+    async getProcedimento(idProcedimento)
+    {
+        const sql = "SELECT * FROM procedimentos WHERE id = ?";
+    
+        return new Promise((resolve, reject) => {
+            conexao.query(sql,idProcedimento,(error, result) => {
+                if (error) return reject(false);
+
+                const row = JSON.parse(JSON.stringify(result));
+                return resolve(row);
+            })
+        })
+    }
 }
 
 export default new ClinicaRepository();

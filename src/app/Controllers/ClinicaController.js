@@ -82,9 +82,43 @@ class ClinicaController {
     
     async postClinica(req,res)
     {
+        let arrProcedimento  = [];
+        let verify           = false;
+        const idProcedimento = req.body.id_procedimento;
+
         try {
 
-            await ClinicaRepository.postClinica(req.body);
+            arrProcedimento = await ClinicaRepository.getProcedimento(idProcedimento);
+            verify          = (!arrProcedimento[0]) ? true : false;
+
+        } catch(error) {
+            console.error(error.message);
+            console.log(error.stack);
+            return res.status(400).json({
+                error: true,
+                msgUser: "Erro ao cadastrar clinica.",
+                msgOriginal: "Erro ao cadastrar clinica na tabela clinica."
+            });
+        }
+
+        if (verify) {
+            return res.status(404).json({
+                error: true,
+                msgUser: "Erro ao cadastrar clinica.",
+                msgOriginal: "Erro ao cadastrar clinica na tabela clinica."
+            });
+        }
+
+        const postClinica = {
+            'nome': arrProcedimento[0].nome + ' - ' + arrProcedimento[0].dia,
+            'periodo': req.body.periodo,
+            'turno': req.body.turno,
+            'procedimento_id': idProcedimento
+        };
+
+        try {
+
+            await ClinicaRepository.postClinica(postClinica);
 
         } catch(error) {
             console.error(error.message);

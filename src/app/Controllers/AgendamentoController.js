@@ -63,7 +63,7 @@ class AgendamentoController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Erro ao trazer datas, Por Favor tente novamente mais tarde.",
+                msgUser: "Prezado, ocorreu um erro ao trazer datas, Por favor, tente novamente mais tarde.",
                 msgOriginal: "Erro ao trazer datas, caiu no catch"
             });
         }
@@ -71,7 +71,7 @@ class AgendamentoController {
         if (verify) {
             return res.status(404).json({
                 error: true,
-                msgUser: "Nenhuma data encontrada, Por Favor tente novamente mais tarde.",
+                msgUser: "Prezado, nenhuma data encontrada, Por Favor, tente novamente mais tarde.",
                 msgOriginal: "Erro ao trazer datas, retorno vazio"
             });
         }
@@ -105,7 +105,7 @@ class AgendamentoController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Erro ao buscar clinica, Por Favor tente novamente mais tarde.",
+                msgUser: "Prezado, ocorreu um erro ao buscar clinica, Por Favor, tente novamente mais tarde.",
                 msgOriginal: "Erro ao trazer clinica, caiu no catch"
             });
         }
@@ -113,8 +113,8 @@ class AgendamentoController {
         if (verify) {
             return res.status(404).json({
                 error: true,
-                msgUser: "Nenhuma clinica disponivel para fazer esse procedimento, Por Favor tente novamente mais tarde.",
-                msgOriginal: "Erro ao trazer clinica, retorno vazio da tabela clinica"
+                msgUser: "Prezado, nenhuma clinica disponivel para esse procedimento, Por Favor, tente novamente mais tarde.",
+                msgOriginal: "Erro ao trazer clinica, retorno vazio"
             });
         }
 

@@ -4,10 +4,6 @@ class ClinicaRequest {
     {
         let msg = '';
 
-        if (!req.body.nome) {
-            msg = 'Parametro nome é obrigatorio.';
-        }
-
         if (!req.body.periodo) {
             msg = 'Parametro periodo é obrigatorio.';
         }
@@ -16,8 +12,8 @@ class ClinicaRequest {
             msg = 'Parametro turno é obrigatorio.';
         }
 
-        if (!req.body.procedimento_id) {
-            msg = 'Parametro procedimento_id é obrigatorio.';
+        if (!req.body.id_procedimento) {
+            msg = 'Parametro id_procedimento é obrigatorio.';
         }
 
         if(msg) {
