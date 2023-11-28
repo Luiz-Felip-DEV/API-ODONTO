@@ -39,8 +39,9 @@ class ClinicaController {
 
     async getProcedimentos(req,res)
     {
-        let arrDados = [];
-        let verify   = false;
+        let arrDados  = [];
+        let verify    = false;
+        let arrResult = [];
 
         try {
 
@@ -68,27 +69,28 @@ class ClinicaController {
         const contador = Object.keys(arrDados).length;
 
         for(let i = 0; i < contador; i++) {
-            delete arrDados[i].data_log;
-            arrDados[i].nome_procedimento = arrDados[i].nome + ' - ' + arrDados[i].dia;
+            arrResult.push(arrDados[i].nome);
+            // delete arrDados[i].data_log;
+            // arrDados[i].nome_procedimento = arrDados[i].nome + ' - ' + arrDados[i].dia;
         }
 
         return res.status(200).json({
             error: false,
             msgUser: null,
             msgOriginal: null,
-            results: arrDados
+            results: arrResult
         });
     }
     
     async postClinica(req,res)
     {
-        let arrProcedimento  = [];
-        let verify           = false;
-        const idProcedimento = req.body.id_procedimento;
+        let arrProcedimento   = [];
+        let verify            = false;
+        const nomeProcedimento = req.body.nome;
 
         try {
 
-            arrProcedimento = await ClinicaRepository.getProcedimento(idProcedimento);
+            arrProcedimento = await ClinicaRepository.getProcedimento(nomeProcedimento);
             verify          = (!arrProcedimento[0]) ? true : false;
 
         } catch(error) {
@@ -113,7 +115,7 @@ class ClinicaController {
             'nome': arrProcedimento[0].nome + ' - ' + arrProcedimento[0].dia,
             'periodo': req.body.periodo,
             'turno': req.body.turno,
-            'procedimento_id': idProcedimento
+            'procedimento_id': arrProcedimento[0].id
         };
 
         try {

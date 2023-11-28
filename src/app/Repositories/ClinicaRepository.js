@@ -88,7 +88,7 @@ class ClinicaRepository {
 
     async getProcedimento(idProcedimento)
     {
-        const sql = "SELECT * FROM procedimentos WHERE id = ?";
+        const sql = "SELECT * FROM procedimentos WHERE nome = ?";
     
         return new Promise((resolve, reject) => {
             conexao.query(sql,idProcedimento,(error, result) => {
