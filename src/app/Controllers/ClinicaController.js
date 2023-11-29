@@ -41,7 +41,7 @@ class ClinicaController {
     {
         let arrDados  = [];
         let verify    = false;
-        let arrResult = [];
+        let arrResult = {};
 
         try {
 
@@ -69,7 +69,8 @@ class ClinicaController {
         const contador = Object.keys(arrDados).length;
 
         for(let i = 0; i < contador; i++) {
-            arrResult.push(arrDados[i].nome);
+            arrResult[i] = arrDados[i].nome;
+            // arrResult.push(arrDados[i].nome);
             // delete arrDados[i].data_log;
             // arrDados[i].nome_procedimento = arrDados[i].nome + ' - ' + arrDados[i].dia;
         }
