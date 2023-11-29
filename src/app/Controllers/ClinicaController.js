@@ -82,6 +82,43 @@ class ClinicaController {
             results: arrResult
         });
     }
+
+    async getProcedimentosHome(req, res)
+    {
+        let arrDados = [];
+        let verify   = false;
+
+        try {
+
+            arrDados = await ClinicaRepository.getProcedimentoHome();
+            verify   = (!arrDados[0]) ? true : false;
+
+        } catch (error) {
+            console.error(error.message);
+            console.log(error.stack);
+            return res.status(400).json({
+                error: true,
+                msgUser: "Erro ao trazer procedimentos, Por Favor tente novamente mais tarde.",
+                msgOriginal: "Erro ao trazer procedimentos da tabela procedimentos."
+            });
+        }
+
+        if (verify) {
+            return res.status(404).json({
+                error: true,
+                msgUser: "Nenhum procedimento encontrado, Por Favor tente novamente mais tarde.",
+                msgOriginal: "Nenhum procedimento encontrado da tabela procedimentos."
+            });
+        }
+
+        return res.status(200).json({
+            error: false,
+            msgUser: null,
+            msgOriginal: null,
+            results: arrDados
+        });
+
+    }
     
     async postClinica(req,res)
     {

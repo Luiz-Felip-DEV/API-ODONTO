@@ -18,6 +18,7 @@ const router  = Router();
 router.get('/periodos', Jwt.checkToken, ClinicaController.getPeriodos);
 router.get('/turnos', Jwt.checkToken, ClinicaController.getTurnos);
 router.get('/procedimentos', Jwt.checkToken, ClinicaController.getProcedimentos);
+router.get('/procedimentos-home', Jwt.checkToken, ClinicaController.getProcedimentosHome);
 router.get('/clinicas-all', Jwt.checkToken, ClinicaController.getAllClinicas);
 router.get('/clinica', Jwt.checkToken, ClinicaRequest.getClinica, ClinicaController.getClinica);
 router.get('/get-user', Jwt.checkToken, PacienteRequest.getPaciente, PacienteController.getPaciente);
