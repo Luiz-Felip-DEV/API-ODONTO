@@ -7,7 +7,7 @@ class AgendamentoController {
     async getDatas(req, res)
     {
         const dia      = await AgendamentoUtils.formatarDia(req.query.dia);
-        const arrDatas = [];
+        const ObjDatas = {};
         let arrResult  = [];
         let verify     = false;
 
@@ -76,15 +76,17 @@ class AgendamentoController {
             });
         }
 
-        for (const elemento of arrResult) {
-            arrDatas.push(elemento.proxima_segunda)
-          }
+        const contador = Object.keys(arrResult).length;
+
+        for(let i = 0; i < contador; i++) {
+            ObjDatas[i] = arrResult[i].proxima_segunda;
+        }
         
           return res.status(200).json({
             error: false,
             msgUser: null,
             msgOriginal: null,
-            result: arrDatas
+            result: ObjDatas
         });
     }
 
