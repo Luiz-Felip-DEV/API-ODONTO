@@ -1,4 +1,5 @@
 import ClinicaRepository from "../Repositories/ClinicaRepository.js";
+import ClinicaUtils from "../Utils/ClinicaUtils.js";
 
 class ClinicaController {
 
@@ -70,9 +71,6 @@ class ClinicaController {
 
         for(let i = 0; i < contador; i++) {
             arrResult[i] = arrDados[i].nome;
-            // arrResult.push(arrDados[i].nome);
-            // delete arrDados[i].data_log;
-            // arrDados[i].nome_procedimento = arrDados[i].nome + ' - ' + arrDados[i].dia;
         }
 
         return res.status(200).json({
@@ -122,8 +120,8 @@ class ClinicaController {
     
     async postClinica(req,res)
     {
-        let arrProcedimento   = [];
-        let verify            = false;
+        let arrProcedimento    = [];
+        let verify             = false;
         const nomeProcedimento = req.body.nome;
 
         try {
@@ -148,12 +146,27 @@ class ClinicaController {
                 msgOriginal: "Erro ao cadastrar clinica na tabela clinica."
             });
         }
+        
+        const nomeClinica    = arrProcedimento[0].nome + ' - ' + arrProcedimento[0].dia;
+        const procedimentoId = arrProcedimento[0].id;
+        const periodo        = req.body.periodo;
+        const turno          = req.body.turno;
+
+       const verifyClinica = await ClinicaUtils.verifyClinica(nomeClinica, periodo)
+
+        if (verifyClinica) {
+            return res.status(400).json({
+                error: true,
+                msgUser: "Já existe essa clinica cadastrada, Por Favor, Selecione outros parametros.",
+                msgOriginal: "Erro ao cadastrar clinica na tabela clinica."
+            });
+        }
 
         const postClinica = {
-            'nome': arrProcedimento[0].nome + ' - ' + arrProcedimento[0].dia,
-            'periodo': req.body.periodo,
-            'turno': req.body.turno,
-            'procedimento_id': arrProcedimento[0].id
+            'nome': nomeClinica,
+            'periodo': periodo,
+            'turno': turno,
+            'procedimento_id': procedimentoId
         };
 
         try {

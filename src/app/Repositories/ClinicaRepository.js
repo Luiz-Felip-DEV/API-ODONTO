@@ -113,6 +113,20 @@ class ClinicaRepository {
             })
         })
     }
+
+    async getVerifyClinica(nome, periodo)
+    {
+        const sql = "SELECT * FROM clinica WHERE nome = ? AND periodo = ?";
+    
+        return new Promise((resolve, reject) => {
+            conexao.query(sql,[nome, periodo],(error, result) => {
+                if (error) return reject(false);
+
+                const row = JSON.parse(JSON.stringify(result));
+                return resolve(row);
+            })
+        })
+    }
 }
 
 export default new ClinicaRepository();
