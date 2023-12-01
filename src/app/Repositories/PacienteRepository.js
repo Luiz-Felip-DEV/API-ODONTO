@@ -46,6 +46,48 @@ class PacienteRepository {
             });
         });
     }
+
+    async verifyTelephone(telefone)
+    {
+        const sql = 'SELECT * FROM pacientes WHERE telefone = ?';
+
+        return new Promise((resolve, reject) => {
+            conexao.query(sql,telefone,(error, result) => {
+                if (error) return reject(false);
+
+                const row = JSON.parse(JSON.stringify(result));
+                return resolve(row);
+            });
+        });
+    }
+
+    async verifyCPF(cpf)
+    {
+        const sql = 'SELECT * FROM pacientes WHERE cpf = ?';
+
+        return new Promise((resolve, reject) => {
+            conexao.query(sql,cpf,(error, result) => {
+                if (error) return reject(false);
+
+                const row = JSON.parse(JSON.stringify(result));
+                return resolve(row);
+            });
+        });
+    }
+
+    async verifyEmail(email)
+    {
+        const sql = 'SELECT * FROM pacientes WHERE email = ?';
+
+        return new Promise((resolve, reject) => {
+            conexao.query(sql,email,(error, result) => {
+                if (error) return reject(false);
+
+                const row = JSON.parse(JSON.stringify(result));
+                return resolve(row);
+            });
+        });
+    }
 }
 
 export default new PacienteRepository();

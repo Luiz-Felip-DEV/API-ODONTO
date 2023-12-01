@@ -20,7 +20,7 @@ class PacienteController {
         console.log(error.stack);
         return res.status(400).json({
             error: true,
-            msgUser: "Erro ao buscar paciente, Por Favor, Tente Novamente mais tarde.",
+            msgUser: "Desculpe, ocorreu um erro ao tentar buscar informações sobre o paciente. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.",
             msgOriginal: "Erro ao buscar paciente da tabela pacientes."
           });
       }
@@ -28,7 +28,7 @@ class PacienteController {
       if (verify) {
           return res.status(404).json({
             error: true,
-            msgUser: "Nenhum usuario encontrado, Por Favor, Mude os dados e tente novamente.",
+            msgUser: "Desculpe, não encontramos nenhum paciente correspondente à sua busca. Certifique-se de que os critérios de pesquisa estão corretos ou entre em contato conosco para assistência.",
             msgOriginal: "Nenhum usuario encontrado na tabela de pacientes."
           });
       }
@@ -45,20 +45,19 @@ class PacienteController {
     {
       const id       = req.query.id;
       const arrDados = await UserUtils.retornarArrayFormatadoSemPt(req.body);
-      let arrResult  = [];
       let verify     = false;
 
       try {
 
-        arrResult = await PacienteRepository.putPaciente(id, arrDados);
-        verify    = (!arrResult[0]) ? true : false;
+        const arrResult = await PacienteRepository.putPaciente(id, arrDados);
+        verify          = (arrResult.changedRows != 1) ? true : false;
 
       } catch (error) {
         console.error(error.message);
         console.log(error.stack);
         return res.status(400).json({
             error: true,
-            msgUser: "Erro ao atualizar dados do paciente, Por Favor, Tente Novamente mais tarde.",
+            msgUser: "Desculpe, ocorreu um erro ao tentar atualizar os dados do paciente. Por favor, verifique as informações inseridas e tente novamente. Se o problema persistir, entre em contato conosco para assistência.",
             msgOriginal: "Erro ao atualizar dados do paciente da tabela pacientes."
           });
       }
@@ -66,35 +65,34 @@ class PacienteController {
         if(verify) {
           return res.status(404).json({
             error: true,
-            msgUser: "Paciente não encontrado, Por Favor, Tente Novamente mais tarde.",
+            msgUser: "Desculpe, não encontramos nenhum paciente correspondente à sua busca. Certifique-se de que os critérios de pesquisa estão corretos ou entre em contato conosco para assistência.",
             msgOriginal: "Nenhum paciente encontrado na tabela pacientes com o id " + id + "."
          });
       }
         
       return res.status(200).json({
           error: false,
-          msgUser: "Dados do paciente atualizado com sucesso.",
+          msgUser: "Sucesso! Os dados do paciente foram atualizados com êxito.",
           msgOriginal: null
       });
     }
 
     async deletePaciente(req,res)
     {
-      const id       = req.query.id;
-      let arrResult  = [];
-      let verify     = false;
+      const id    = req.query.id;
+      let verify  = false;
 
       try {
 
-        arrResult = await PacienteRepository.deletePaciente(id);
-        verify    = (row.affectedRows != 1) ? true : false;
+        const arrResult = await PacienteRepository.deletePaciente(id);
+        verify          = (arrResult.affectedRows != 1) ? true : false;
 
       }catch (error) {
         console.error(error.message);
         console.log(error.stack);
         return res.status(400).json({
           error: true,
-          msgUser: "Erro ao deletar paciente, Por Favor, Tente Novamente mais tarde.",
+          msgUser: "Desculpe, ocorreu um erro ao tentar deletar os dados do paciente. Verifique se todos os pré-requisitos são atendidos e tente novamente. Se o problema persistir, entre em contato conosco para assistência.",
           msgOriginal: "Erro ao deletar paciente da tabela pacientes."
         });
       }
@@ -102,14 +100,14 @@ class PacienteController {
       if (verify) {
         return res.status(404).json({
           error: true,
-          msgUser: "Paciente não encontrado, Por Favor, Tente Novamente mais tarde.",
+          msgUser: "Desculpe, não encontramos nenhum paciente correspondente à sua busca. Certifique-se de que os critérios de pesquisa estão corretos ou entre em contato conosco para assistência.",
           msgOriginal: "Nenhum paciente encontrado na tabela pacientes com o id " + id + "."
         });
       }
 
       return res.status(200).json({
         error: false,
-        msgUser: "Paciente excluido com sucesso.",
+        msgUser: "Sucesso! Os dados do paciente foram deletados com êxito.",
         msgOriginal: null
       });
     }

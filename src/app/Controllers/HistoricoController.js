@@ -19,7 +19,7 @@ class HistoricoController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Erro ao buscar historico da clinica, Por Favor tente novamente mais tarde.",
+                msgUser: "Desculpe, ocorreu um erro ao tentar buscar o histórico da clínica. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Erro ao buscar historico da clinica. Caiu no catch"
             });
         }
@@ -27,7 +27,7 @@ class HistoricoController {
         if (verify) {
             return res.status(404).json({
                 error: true,
-                msgUser: "Nenhum dado foi encontrado referente a essa clinica, Por Favor tente novamente mais tarde.",
+                msgUser: "Desculpe, não encontramos nenhum dado referente à clínica que você está procurando. Certifique-se de que os critérios de busca estão corretos ou entre em contato conosco para assistência.",
                 msgOriginal: "Nenhum historico encontrado dessa clinica na tabela agendamento"
             });
         }
@@ -57,7 +57,7 @@ class HistoricoController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Erro ao buscar historico do paciente, Por Favor tente novamente mais tarde.",
+                msgUser: "Desculpe, ocorreu um erro ao tentar buscar o histórico do paciente. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Erro ao buscar historico do paciente. Caiu no catch"
             });
         }
@@ -65,7 +65,7 @@ class HistoricoController {
         if (verify) {
             return res.status(404).json({
                 error: true,
-                msgUser: "Nenhum dado foi encontrado referente a esse paciente, Por Favor tente novamente mais tarde.",
+                msgUser: "Desculpe, não encontramos nenhum dado referente ao paciente que você está procurando. Certifique-se de que os critérios de busca estão corretos ou entre em contato conosco para assistência.",
                 msgOriginal: "Nenhum historico encontrado desse paciente na tabela agendamento"
             });
         }

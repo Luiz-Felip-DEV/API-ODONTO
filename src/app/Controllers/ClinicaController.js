@@ -54,7 +54,7 @@ class ClinicaController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Erro ao trazer procedimentos, Por Favor tente novamente mais tarde.",
+                msgUser: "Desculpe, ocorreu um erro ao tentar trazer os procedimentos. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Erro ao trazer procedimentos da tabela procedimentos."
             });
         }
@@ -62,7 +62,7 @@ class ClinicaController {
         if (verify) {
             return res.status(404).json({
                 error: true,
-                msgUser: "Nenhum procedimento encontrado, Por Favor tente novamente mais tarde.",
+                msgUser: "Desculpe, não encontramos procedimentos. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Nenhum procedimento encontrado da tabela procedimentos."
             });
         }
@@ -96,7 +96,7 @@ class ClinicaController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Erro ao trazer procedimentos, Por Favor tente novamente mais tarde.",
+                msgUser: "Desculpe, ocorreu um erro ao tentar trazer os procedimentos. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Erro ao trazer procedimentos da tabela procedimentos."
             });
         }
@@ -104,7 +104,7 @@ class ClinicaController {
         if (verify) {
             return res.status(404).json({
                 error: true,
-                msgUser: "Nenhum procedimento encontrado, Por Favor tente novamente mais tarde.",
+                msgUser: "Desculpe, não encontramos procedimentos. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Nenhum procedimento encontrado da tabela procedimentos."
             });
         }
@@ -134,7 +134,7 @@ class ClinicaController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Erro ao cadastrar clinica.",
+                msgUser: "Desculpe, ocorreu um erro ao tentar cadastrar a clínica. Verifique se todos os campos foram preenchidos corretamente e tente novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Erro ao cadastrar clinica na tabela clinica."
             });
         }
@@ -142,7 +142,7 @@ class ClinicaController {
         if (verify) {
             return res.status(404).json({
                 error: true,
-                msgUser: "Erro ao cadastrar clinica.",
+                msgUser: "Desculpe, ocorreu um erro ao tentar cadastrar a clínica. Verifique se todos os campos foram preenchidos corretamente e tente novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Erro ao cadastrar clinica na tabela clinica."
             });
         }
@@ -157,7 +157,7 @@ class ClinicaController {
         if (verifyClinica) {
             return res.status(400).json({
                 error: true,
-                msgUser: "Já existe essa clinica cadastrada, Por Favor, Selecione outros parametros.",
+                msgUser: "Desculpe, uma clínica com esses dados já está cadastrada. Por favor, verifique as informações e tente novamente. Se precisar de ajuda, entre em contato conosco para assistência.",
                 msgOriginal: "Erro ao cadastrar clinica na tabela clinica."
             });
         }
@@ -178,14 +178,14 @@ class ClinicaController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Erro ao cadastrar clinica.",
+                msgUser: "Desculpe, ocorreu um erro ao tentar cadastrar a clínica. Verifique se todos os campos foram preenchidos corretamente e tente novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Erro ao cadastrar clinica na tabela clinica."
             });
         }
         
         return res.status(200).json({
             error: false,
-            msgUser: "Clinica cadastrada com sucesso.",
+            msgUser: "Sucesso! O cadastro da sua clínica foi concluído com êxito.",
             msgOriginal: "Clinica cadastrada com sucesso."
         });
     }
@@ -205,7 +205,7 @@ class ClinicaController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: 'Erro ao buscar clinicas, Por Favor tente novamente mais tarde.',
+                msgUser: 'Desculpe, ocorreu um erro ao tentar trazer clínicas. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.',
                 msgOriginal: 'Erro ao buscar dados da tabela clinica',
             });
         }
@@ -213,7 +213,7 @@ class ClinicaController {
         if (verify) {
             return res.status(404).json({
                 error: true,
-                msgUser: 'Nenhuma clinica encontrada, Por Favor tente novamente mais tarde.',
+                msgUser: 'Desculpe, não encontramos nenhuma clínica. Por favor, Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.',
                 msgOriginal: 'Erro ao buscar dados da tabela clinica',
             });
         }
@@ -243,7 +243,7 @@ class ClinicaController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Erro ao buscar clinica, Por Favor, Tente mais Tarde.",
+                msgUser: "Desculpe, ocorreu um erro ao tentar buscar a clínica. Verifique sua conexão com a internet e tente novamente. Se o problema persistir, entre em contato conosco para assistência",
                 msgOriginal: "Erro ao buscar clinica."
             });
         }
@@ -251,7 +251,7 @@ class ClinicaController {
         if (verify) {
             return res.status(404).json({
                 error: true,
-                msgUser: "Nenhuma clinica encontrada.",
+                msgUser: "Desculpe, não encontramos nenhuma clínica correspondente à sua busca. Talvez os critérios de pesquisa precisem ser ajustados. Se o problema persistir, entre em contato conosco para assistência",
                 msgOriginal: "Nenhuma clinica encontrada na tabela clinica com o id " + id + "."
             });
         }
@@ -270,20 +270,19 @@ class ClinicaController {
     {
         const id       = req.query.id;
         const arrDados = req.body;
-        let arrResult  = [];
         let verify     = false;
 
         try {
 
-            arrResult = await ClinicaRepository.putClinica(id, arrDados);
-            verify    = (row.affectedRows != 1) ? true : false;
+            const arrResult = await ClinicaRepository.putClinica(id, arrDados);
+            verify          = (arrResult.changedRows != 1) ? true : false;
 
         } catch(error) {
             console.error(error.message);
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Erro ao atualizar dados da clinica, Por Favor, Tente mais Tarde.",
+                msgUser: "Desculpe, ocorreu um erro ao tentar atualizar os dados da clínica. Por favor, verifique as informações e tente novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Erro ao atualizar dados da clinica na tabela clinica."
             });
         }
@@ -291,14 +290,14 @@ class ClinicaController {
         if (verify) {
             return res.status(404).json({
                 error: true,
-                msgUser: "Clinica não encontrada, Por Favor, Tente Novamente mais tarde.",
+                msgUser: "Desculpe, não conseguimos encontrar nenhuma clínica correspondente à sua busca. Verifique os detalhes e tente novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Nenhuma clinica encontrada na tabela clinica com o id " + id + "."
             });
         }
 
         return res.status(200).json({
             error: false,
-            msgUser: "Clinica atualizada com sucesso.",
+            msgUser: "Sucesso! Os dados da sua clínica foram atualizados com êxito.",
             msgOriginal: null
         });
     }
@@ -318,7 +317,7 @@ class ClinicaController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Erro ao deletar clinica, Por Favor, Tente Novamente mais tarde.",
+                msgUser: "Desculpe, ocorreu um erro ao tentar deletar a clínica. Verifique se todos os pré-requisitos são atendidos e tente novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Erro ao deletar clinica da tabela clinica."
             });
         }
@@ -326,14 +325,14 @@ class ClinicaController {
         if (verify) {
             return res.status(404).json({
                 error: true,
-                msgUser: "Nenhuma clinica encontrada, Por Favor, Tente Novamente mais tarde.",
+                msgUser: "Desculpe, não conseguimos encontrar nenhuma clínica correspondente à sua busca. Verifique os detalhes e tente novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Nenhuma clinica encontrada na tabela clinica com o id " + id + "."
             });
         }
 
         return res.status(200).json({
             error: false,
-            msgUser: "Clinica deletada com sucesso.",
+            msgUser: "Sucesso! A clínica foi deletada com êxito.",
             msgOriginal: null
         });
 

@@ -1,3 +1,4 @@
+import PacienteRepository from "../Repositories/PacienteRepository.js";
 class UserUtils {
 
     /**
@@ -112,6 +113,62 @@ class UserUtils {
 
         return arrDados;
     }
+    
+    async RepeatedCPF(cpf)
+      {
+            const cpfF = this.formatarCpf(cpf);
+            let verify = false;
+
+            try {
+
+                const arrDados = await PacienteRepository.verifyCPF(cpfF);
+                verify         = (arrDados[0]) ? true : false;
+
+            } catch(error) {
+                console.error(error.message);
+                console.log(error.stack);
+                return false;
+            }
+
+            return verify;
+      }
+
+      async RepeatedPhone(telefone)
+      {
+            const telefoneF = this.formatarTelefone(telefone);
+            let verify      = false;
+
+            try {
+
+                const arrDados = await PacienteRepository.verifyTelephone(telefoneF);
+                verify         = (arrDados[0]) ? true : false;
+
+            } catch(error) {
+                console.error(error.message);
+                console.log(error.stack);
+                return false;
+            }
+
+            return verify;
+      }
+
+      async RepeatedEmail(email)
+      {
+            let verify = false;
+
+            try {
+
+                const arrDados = await PacienteRepository.verifyEmail(email);
+                verify         = (arrDados[0]) ? true : false;
+
+            } catch(error) {
+                console.error(error.message);
+                console.log(error.stack);
+                return false;
+            }
+
+            return verify;
+      }
 }
 
 export default new UserUtils();

@@ -22,16 +22,16 @@ class FuncionarioController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Dados incorretos.",
-                msgOriginal: "Dados incorretos passado pelo usuario."
+                msgUser: "Desculpe, ocorreu um erro ao validar seus dados. Por favor, tente novamente mais tarde.",
+                msgOriginal: "Erro ao tentar fazer o processo de login."
             });
         }
 
         if (verify) {
             return res.status(400).json({
                 error: true,
-                msgUser: "Dados incorretos.",
-                msgOriginal: "Dados incorretos passado pelo usuario."
+                msgUser: "O acesso foi negado devido a informações incorretas. Verifique suas credenciais e faça login novamente.",
+                msgOriginal: "Dados incorretos fornecido pelo usuario."
             });
         }
 
@@ -49,7 +49,7 @@ class FuncionarioController {
         
         return res.status(200).json({
             error: false,
-            msgUser: "Usuario com credenciais aceita.",
+            msgUser: "Acesso concedido! Você entrou com sucesso. Explore todas as funcionalidades disponíveis.",
             msgOriginal: null,
             jwt: token,
             results: arrDados
@@ -73,7 +73,7 @@ class FuncionarioController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Erro ao atualizar senha.",
+                msgUser: "Desculpe, ocorreu um erro ao tentar atualizar sua senha. Verifique suas informações e tente novamente.",
                 msgOriginal: "Erro ao atualizar senha na tabela funcionario."
             });
         }
@@ -81,20 +81,45 @@ class FuncionarioController {
         if (verify) {
             return res.status(404).json({
                 error: true,
-                msgUser: "Usuario não encontrado, Por Favor tente novamente mais tarde.",
+                msgUser: "Infelizmente, não conseguimos localizar um usuário com as informações fornecidas. Certifique-se de que está inserindo as informações corretas.",
                 msgOriginal: "Usuario não encontrado na tabela funcionario."
             });
         }
 
         return res.status(200).json({
             error: false,
-            msgUser: "Senha atualizada com sucesso.",
+            msgUser: "Parabéns! Sua senha foi atualizada com êxito. Continue aproveitando nossos serviços de forma segura.",
             msgOriginal: null
         });
     }
 
     async postUser(req, res)
     {
+
+        if (UserUtils.RepeatedCPF(req.body.cpf)) {
+            return res.status(400).json({
+                error: true,
+                msgUser: 'Desculpe, parece que o CPF fornecido já está associado a um cadastro existente. Se precisar criar um novo cadastro, por favor, utilize um CPF diferente ou entre em contato conosco para obter assistência.',
+                msgOriginal: 'Cpf já consta na base de dados.'
+            });
+        }
+
+        if (UserUtils.RepeatedPhone(req.body.telefone)) {
+            return res.status(400).json({
+                error: true,
+                msgUser: 'Desculpe, o número de telefone fornecido já está associado a um cadastro existente. Se deseja cadastrar um novo usuário, por favor, utilize um número de telefone diferente ou entre em contato conosco para obter assistência.',
+                msgOriginal: 'Telefone já consta na base de dados.'
+            });
+        }
+
+        if (UserUtils.RepeatedEmail(req.body.email)) {
+            return res.status(400).json({
+                error: true,
+                msgUser: 'Desculpe, o e-mail fornecido já está associado a um cadastro existente. Se deseja cadastrar um novo usuário, por favor, utilize um endereço de e-mail diferente ou entre em contato conosco para obter assistência.',
+                msgOriginal: 'Telefone já consta na base de dados.'
+            });
+        }
+
         const arrDados = await UserUtils.retornarArrayFormatado(req.body);
 
         try {
@@ -106,14 +131,14 @@ class FuncionarioController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: 'Algo deu errado ao inserir usuario, Por favor, tente novamente mais tarde.',
+                msgUser: 'Desculpe, ocorreu um erro ao tentar inserir seus dados para o cadastro. Verifique se todas as informações estão corretas e tente novamente. Se o problema persistir, entre em contato conosco para assistência.',
                 msgOriginal: 'Erro ao inserir usuario na tabela pacientes'
             });
         }
 
         return res.status(200).json({
             error: false,
-            msgUser: 'Usuario cadastrado com sucesso.',
+            msgUser: 'Sucesso! O cadastro do paciente foi realizado com êxito',
             msgOriginal: null,
             nro_prontuario: arrDados['nro_prontuario']
         });
