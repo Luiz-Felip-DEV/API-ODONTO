@@ -46,7 +46,7 @@ class ClinicaRepository {
 
     async getAllClinica()
     {
-        const sql = "SELECT * FROM clinica";
+        const sql = "SELECT id,CONCAT(nome, ' (', periodo, ' PERIODO)') nome, turno, procedimento_id FROM clinica";
     
         return new Promise((resolve, reject) => {
             conexao.query(sql,(error, result) => {
