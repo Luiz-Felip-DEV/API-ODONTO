@@ -13,7 +13,7 @@ class AgendamentoController {
 
         let param1, param2, param3, param4, param5 = '';
 
-        if (dia == 'Segunda') {
+        if (dia == 'SEGUNDA') {
             param1 = 7;
             param2 = 14;
             param3 = 21;
@@ -21,7 +21,7 @@ class AgendamentoController {
             param5 = 35;
         }
 
-        if (dia == 'Terça') {
+        if (dia == 'TERCA') {
             param1 = 8;
             param2 = 15;
             param3 = 22;
@@ -29,7 +29,7 @@ class AgendamentoController {
             param5 = 36;
         }
 
-        if (dia == 'Quarta') {
+        if (dia == 'QUARTA') {
             param1 = 9;
             param2 = 16;
             param3 = 23;
@@ -37,7 +37,7 @@ class AgendamentoController {
             param5 = 37;
         }
 
-        if (dia == 'Quinta') {
+        if (dia == 'QUINTA') {
             param1 = 10;
             param2 = 17;
             param3 = 24;
@@ -45,7 +45,7 @@ class AgendamentoController {
             param5 = 38;
         }
 
-        if (dia == 'Sexta') {
+        if (dia == 'SEXTA') {
             param1 = 11;
             param2 = 18;
             param3 = 25;
@@ -63,7 +63,7 @@ class AgendamentoController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Prezado, ocorreu um erro ao trazer datas, Por favor, tente novamente mais tarde.",
+                msgUser: "Desculpe, ocorreu um erro ao tentar trazer as datas. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Erro ao trazer datas, caiu no catch"
             });
         }
@@ -71,7 +71,7 @@ class AgendamentoController {
         if (verify) {
             return res.status(404).json({
                 error: true,
-                msgUser: "Prezado, nenhuma data encontrada, Por Favor, tente novamente mais tarde.",
+                msgUser: "Desculpe, não encontramos datas. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Erro ao trazer datas, retorno vazio"
             });
         }
@@ -107,7 +107,7 @@ class AgendamentoController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Prezado, ocorreu um erro ao buscar clinica, Por Favor, tente novamente mais tarde.",
+                msgUser: "Desculpe, ocorreu um erro ao tentar buscar clinica. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Erro ao trazer clinica, caiu no catch"
             });
         }
@@ -115,7 +115,7 @@ class AgendamentoController {
         if (verify) {
             return res.status(404).json({
                 error: true,
-                msgUser: "Prezado, nenhuma clinica disponivel para esse procedimento, Por Favor, tente novamente mais tarde.",
+                msgUser: "Desculpe, não encontramos nenhum horario. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Erro ao trazer clinica, retorno vazio"
             });
         }
@@ -127,7 +127,7 @@ class AgendamentoController {
         switch(turno) {
 
             case 'Manhã':
-                horario1 = '9:00';
+                horario1 = '09:00';
                 horario2 = '10:00'
                 horario3 = '11:00';
                 break;
@@ -171,7 +171,7 @@ class AgendamentoController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: 'Erro ao buscar alunos, Por Favor, tente novamente mais tarde.',
+                msgUser: 'Desculpe, ocorreu um erro ao tentar buscar alunos. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.',
                 msgOriginal: 'Nenhum aluno encontrado na tabela funcionario com periodo: ' + periodo
             });
         }
@@ -179,7 +179,7 @@ class AgendamentoController {
         if (verify) {
             return res.status(404).json({
                 error: true,
-                msgUser: 'Nenhum aluno encontrado, Por favor, tente novamente mais tarde.',
+                msgUser: 'Desculpe, não encontramos nenhum aluno. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.',
                 msgOriginal: 'Nenhum aluno encontrado na tabela funcionario com periodo: ' + periodo
             });
         }
@@ -205,14 +205,14 @@ class AgendamentoController {
             console.log(error.stack);
             return res.status(400).json({
                 error: true,
-                msgUser: "Erro ao cadastrar agendamento.",
+                msgUser: "Desculpe, ocorreu um erro ao tentar cadastrar agendamento. Verifique se todos os campos foram preenchidos corretamente e tente novamente. Se o problema persistir, entre em contato conosco para assistência.",
                 msgOriginal: "Erro ao cadastrar agendamento. Caiu no catch"
             });
         }
 
         return res.status(200).json({
             error: false,
-            msgUser: "Agendamento cadastrado com sucesso.",
+            msgUser: "Sucesso! O agendamento foi concluído com êxito.",
             msgOriginal: null
         });
     }

@@ -5,7 +5,7 @@ class HistoricoRepository {
     async getHistoricoClinica(idClinica)
     {
         const sql = "SELECT T1.nome, T1.periodo, T4.nome AS procedimento,COUNT(*) AS total_atendimentos, COUNT(CASE WHEN T2.status_consulta = 'R' THEN 1 ELSE NULL END) AS   consultas_realizadas, COUNT(CASE WHEN T2.status_consulta = 'NR' THEN 1 ELSE NULL END) AS consultas_nao_realizadas,COUNT(CASE WHEN T2.status_pagamento = 'P' THEN 1 ELSE NULL END) AS consultas_pagas,COUNT(CASE WHEN T2.status_pagamento = 'NP' THEN 1 ELSE NULL END) AS consultas_nao_pagas, CONCAT ('R$',ROUND(T4.valor, 2)) AS valor_consulta," +
-        " CONCAT('R$ ', FORMAT(SUM(CASE WHEN T2.status_pagamento = 'P' THEN T4.valor ELSE 0 END), 2)) AS total_valor_consultas_pagas" +
+        " CONCAT('R$ ', IFNULL(FORMAT(SUM(CASE WHEN T2.status_pagamento = 'P' THEN T4.valor ELSE 0 END), 2), '0.00')) AS total_valor_consultas_pagas" +
                                                                         ' FROM clinica T1' +
                                                                             ' INNER JOIN agendamento T2' +
                                                                             ' ON (T1.id = T2.clinica_id)' +
