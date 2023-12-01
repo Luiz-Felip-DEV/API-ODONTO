@@ -4,6 +4,49 @@ import UserUtils from "../Utils/UserUtils.js";
 
 class AgendamentoController {
 
+    async getNomesClinicas(req, res)
+    {
+        let arrDados  = [];
+        let objResult = {};
+        let verify    = false;
+
+        try {
+
+            arrDados = await AgendamentoRepository.getNomesClinicas();
+            verify   = (!arrDados[0]) ? true : false;
+
+        } catch (error) {
+            console.error(error.message);
+            console.log(error.stack);
+            return res.status(400).json({
+                error: true,
+                msgUser: "Desculpe, ocorreu um erro ao tentar trazer as clinicas. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.",
+                msgOriginal: "Erro ao trazer clinicas, caiu no catch"
+            });
+        }
+        
+        if (verify) {
+            return res.status(404).json({
+                error: true,
+                msgUser: "Desculpe, não encontramos clinicas disponiveis. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.",
+                msgOriginal: "Erro ao trazer clinicas, retorno vazio"
+            });
+        }
+
+        const contador = Object.keys(arrDados).length;
+
+        for(let i = 0; i < contador; i++) {
+            objResult[i] = arrDados[i].nome;
+        }
+
+        return res.status(200).json({
+            error: false,
+            msgUser: null,
+            msgOriginal: null,
+            result: objResult
+        });
+    }
+
     async getDatas(req, res)
     {
         const dia      = await AgendamentoUtils.formatarDia(req.query.dia);

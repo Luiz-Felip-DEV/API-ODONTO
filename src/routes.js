@@ -28,7 +28,8 @@ router.get('/agendamentos-data', Jwt.checkToken, AgendamentoController.getAgenda
 router.get('/datas', Jwt.checkToken, AgendamentoRequest.getDatas, AgendamentoController.getDatas);
 router.get('/horario', Jwt.checkToken, AgendamentoRequest.getHorario, AgendamentoController.getHorario);
 router.get('/historico-clinica', Jwt.checkToken, HistoricoRequest.getHistoricoClinica, HistoricoController.getHistoricoClinica);
-router.get('/historico-paciente', Jwt.checkToken, HistoricoController.getHistoricoPaciente);
+router.get('/historico-paciente', Jwt.checkToken, HistoricoRequest.getHistoricoPaciente,HistoricoController.getHistoricoPaciente);
+router.get('/clinicas', Jwt.checkToken, AgendamentoController.getNomesClinicas);
 
 //POST
 

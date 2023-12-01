@@ -25,7 +25,7 @@ class HistoricoRepository {
         });
     }
 
-    async getHistoricoPaciente(nroProntuario, cpf)
+    async getHistoricoPaciente(info)
     {
         const sql = "SELECT DISTINCT T1.nome, T2.status_pagamento pagamento, T2.status_consulta consulta, T2.horario_consulta, T3.turno, DATE_FORMAT(T2.data_consulta, '%Y-%m-%d') data_consulta," + " T5.nome procedimento, T5.valor, T4.nome nome_aluno, T4.cod_user cod_alu" +
                                                         " FROM pacientes T1" +
@@ -37,10 +37,12 @@ class HistoricoRepository {
                                                                 " ON (T2.aluno_id = T4.id)" +
                                                             " INNER JOIN procedimentos T5" +
                                                                 " ON (T3.procedimento_id = T5.id)" +
-                                                        " WHERE T1.nro_prontuario = ? OR T1.cpf = ?";
+                                                        " WHERE " + info;
 
         return new Promise((resolve, reject) => {
-            conexao.query(sql,[nroProntuario, cpf],(error, result) => {
+            conexao.query(sql,(error, result) => {
+                console.log(sql);
+                console.log(error);
                 if (error) return reject(false);
 
                 const row = JSON.parse(JSON.stringify(result));

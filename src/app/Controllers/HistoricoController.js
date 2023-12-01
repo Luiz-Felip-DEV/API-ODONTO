@@ -42,14 +42,16 @@ class HistoricoController {
 
     async getHistoricoPaciente(req, res)
     {
-        const nroProntuario = (req.query.nro_prontuario) ? req.query.nro_prontuario : '';
-        const cpf           = (req.query.cpf) ? UserUtils.formatarCpf(req.query.cpf) : '';
-        let arrHistorico    = [];
-        const verify          = false;
+        const info       = req.query.info;
+        const contador   = Object.keys(info.split('NP')).length;
+        let arrHistorico = [];
+        let verify       = false;
+
+        const sql = (contador == 1) ? `T1.cpf = '${UserUtils.formatarCpf(info)}'` : `T1.nro_prontuario = '${info}'`
 
         try {
 
-            arrHistorico = await HistoricoRepository.getHistoricoPaciente(nroProntuario, cpf);
+            arrHistorico = await HistoricoRepository.getHistoricoPaciente(sql);
             verify       = (!arrHistorico[0]) ? true : false;
 
         } catch (error) {
