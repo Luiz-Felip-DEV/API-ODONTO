@@ -38,12 +38,12 @@ class AgendamentoRepository {
         });
     }
 
-    async getHorario(idProcedimento)
+    async getHorario(nomeClinica)
     {
-        const sql = 'SELECT * FROM clinica WHERE procedimento_id = ?';
+        const sql = 'SELECT id,turno FROM clinica WHERE nome = ?';
 
         return new Promise((resolve, reject) => {
-            conexao.query(sql,idProcedimento,(error, result) => {
+            conexao.query(sql,nomeClinica,(error, result) => {
                 if (error) return reject(false);
 
                 const row = JSON.parse(JSON.stringify(result));
@@ -52,12 +52,15 @@ class AgendamentoRepository {
         });
     }
 
-    getAlunosClinica(periodo)
+    getAlunosClinica(nomeClinica)
     {
-        const sql = "SELECT id, nome, cod_user FROM funcionario WHERE perfil = 'Alu' and periodo = ?";
+        const sql = "SELECT T1.id, T1.nome, T1.cod_user FROM funcionario T1 " +
+                            "INNER JOIN clinica T2 " +
+                                "ON(T2.periodo = T1.periodo) " +
+                            "WHERE T1.perfil = 'Alu' and T2.nome = ?";
 
         return new Promise((resolve, reject) => {
-            conexao.query(sql,periodo,(error, result) => {
+            conexao.query(sql,nomeClinica,(error, result) => {
                 if (error) return reject(false);
 
                 const row = JSON.parse(JSON.stringify(result));
@@ -155,6 +158,20 @@ class AgendamentoRepository {
     async deleteAgendamento(id)
     {
         const sql = "DELETE FROM agendamento WHERE id = ?";
+    
+        return new Promise((resolve, reject) => {
+            conexao.query(sql,id,(error, result) => {
+                if (error) return reject(false);
+
+                const row = JSON.parse(JSON.stringify(result));
+                return resolve(row);
+            });
+        });
+    }
+
+    async getClinicaNome(nome)
+    {
+        const sql = "SELECT * FROM  clinica WHERE nome = ?";
     
         return new Promise((resolve, reject) => {
             conexao.query(sql,id,(error, result) => {

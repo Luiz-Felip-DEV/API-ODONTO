@@ -5,14 +5,16 @@ class PacienteController {
 
     async getPaciente(req,res)
     { 
-        const nroProntuario = req.query.nro_prontuario;
-        const cpf           = req.query.cpf;
+        const info       = req.query.info;
+        const contador   = Object.keys(info.split('NP')).length;
         let arrDados        = [];
         let verify          = false;
 
+        const sql = (contador == 1) ? `cpf = '${UserUtils.formatarCpf(info)}'` : `nro_prontuario = '${info}'`
+
       try {
 
-        arrDados = await PacienteRepository.getPaciente(nroProntuario, cpf);
+        arrDados = await PacienteRepository.getPaciente(sql);
         verify   = (!arrDados[0]) ? true : false;
 
       } catch(error) {

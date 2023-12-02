@@ -1,12 +1,11 @@
 import UserUtils from "./UserUtils.js";
 class AgendamentoUtils {
 
-    async formataArray(dados) {
+    async formataArray(dados, clinicaId) {
 
         const dataConsulta    = (dados.data_consulta) ? UserUtils.formatarData(dados.data_consulta) : '';
         const horarioConsulta = dados.horario_consulta;
         const pacienteId      = dados.paciente_id;
-        const clinicaId       = dados.clinica_id;
         const alunoId         = dados.aluno_id;
 
         const arrDados = {status_pagamento: '', status_consulta: '', horario_consulta: horarioConsulta, data_consulta: dataConsulta, paciente_id: pacienteId, clinica_id: clinicaId, aluno_id: alunoId};
@@ -29,9 +28,12 @@ class AgendamentoUtils {
     }
 
 
-    async formatarDia(dia)
+    async pegarDia(nome)
     {
-        return dia.charAt(0).toUpperCase() + dia.slice(1);
+        let arrNome   = nome.split('(');
+        let arrResult = arrNome[0].split('-');
+
+        return arrResult[1];
     }
 
 }

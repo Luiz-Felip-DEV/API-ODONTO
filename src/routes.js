@@ -22,7 +22,7 @@ router.get('/procedimentos-home', Jwt.checkToken, ClinicaController.getProcedime
 router.get('/clinicas-all', Jwt.checkToken, ClinicaController.getAllClinicas);
 router.get('/clinica', Jwt.checkToken, ClinicaRequest.getClinica, ClinicaController.getClinica);
 router.get('/get-user', Jwt.checkToken, PacienteRequest.getPaciente, PacienteController.getPaciente);
-router.get('/get-alunos-clinica', Jwt.checkToken, AgendamentoRequest.getAlunosClinica, AgendamentoController.getAlunosClinica);
+router.get('/alunos-clinica', Jwt.checkToken, AgendamentoRequest.getAlunosClinica, AgendamentoController.getAlunosClinica);
 router.get('/agendamento', Jwt.checkToken, AgendamentoController.getAgendamento);
 router.get('/agendamentos-data', Jwt.checkToken, AgendamentoController.getAgendamentoData);
 router.get('/datas', Jwt.checkToken, AgendamentoRequest.getDatas, AgendamentoController.getDatas);

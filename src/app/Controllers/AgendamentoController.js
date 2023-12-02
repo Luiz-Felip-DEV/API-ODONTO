@@ -49,51 +49,51 @@ class AgendamentoController {
 
     async getDatas(req, res)
     {
-        const dia      = await AgendamentoUtils.formatarDia(req.query.dia);
+        const dia      = await AgendamentoUtils.pegarDia(req.query.nome_clinica);
+    
         const ObjDatas = {};
         let arrResult  = [];
         let verify     = false;
 
         let param1, param2, param3, param4, param5 = '';
 
-        if (dia == 'SEGUNDA') {
-            param1 = 7;
-            param2 = 14;
-            param3 = 21;
-            param4 = 28;
-            param5 = 35;
-        }
+        switch(dia) {
 
-        if (dia == 'TERCA') {
-            param1 = 8;
-            param2 = 15;
-            param3 = 22;
-            param4 = 29;
-            param5 = 36;
-        }
-
-        if (dia == 'QUARTA') {
-            param1 = 9;
-            param2 = 16;
-            param3 = 23;
-            param4 = 30;
-            param5 = 37;
-        }
-
-        if (dia == 'QUINTA') {
-            param1 = 10;
-            param2 = 17;
-            param3 = 24;
-            param4 = 31;
-            param5 = 38;
-        }
-
-        if (dia == 'SEXTA') {
-            param1 = 11;
-            param2 = 18;
-            param3 = 25;
-            param4 = 32;
-            param5 = 39;
+            case ' SEGUNDA ':
+                param1 = 7;
+                param2 = 14;
+                param3 = 21;
+                param4 = 28;
+                param5 = 35;
+                break;
+            case ' TERCA ':
+                param1 = 8;
+                param2 = 15;
+                param3 = 22;
+                param4 = 29;
+                param5 = 36;
+                break;
+            case ' QUARTA ':
+                param1 = 9;
+                param2 = 16;
+                param3 = 23;
+                param4 = 30;
+                param5 = 37;
+                break;
+            case ' QUINTA ':
+                param1 = 10;
+                param2 = 17;
+                param3 = 24;
+                param4 = 31;
+                param5 = 38;
+                break;
+            case ' SEXTA ':
+                param1 = 11;
+                param2 = 18;
+                param3 = 25;
+                param4 = 32;
+                param5 = 39;
+                break;
         }
 
         try {
@@ -135,14 +135,14 @@ class AgendamentoController {
 
     async getHorario(req, res)
     {
-        const idProcedimento  = req.query.id_procedimento;
-        let arrClinica        = [];
-        let verify            = false;
+        const nome         = req.query.nome_clinica.split('(')[0];
+        let arrClinica     = [];
+        let verify         = false;
         let horario1,horario2, horario3 = '';
         
         try {
 
-            arrClinica = await AgendamentoRepository.getHorario(idProcedimento);
+            arrClinica = await AgendamentoRepository.getHorario(nome);
             verify     = (!arrClinica[0]) ? true : false;
 
         } catch (error) {
@@ -164,8 +164,7 @@ class AgendamentoController {
         }
 
         const turno       = arrClinica[0].turno;
-        const nomeClinica = arrClinica[0].nome;
-        const idClinica   = arrClinica[0].id
+        const nomeClinica = req.query.nome_clinica;
 
         switch(turno) {
 
@@ -191,7 +190,6 @@ class AgendamentoController {
             msgUser: null,
             msgOriginal: null,
             result: {
-                'id_clinica': idClinica,
                 'nome_clinica': nomeClinica,
                 'horarios': [horario1, horario2, horario3]
             }
@@ -201,12 +199,13 @@ class AgendamentoController {
 
     async getAlunosClinica(req, res)
     {
-        const periodo = req.query.periodo;
-        let arrDados  = [];
-        let verify    = false;
+        const nomeClinica = req.query.nome_clinica.split('(')[0];
+        let arrDados      = [];
+        let verify        = false;
 
         try {
-            arrDados = await AgendamentoRepository.getAlunosClinica(periodo);
+
+            arrDados = await AgendamentoRepository.getAlunosClinica(nomeClinica);
             verify   = (!arrDados[0]) ? true : false;
 
         } catch(error) {
@@ -237,7 +236,35 @@ class AgendamentoController {
     
     async postAgendamento(req, res)
     {
-        const arrDados = await AgendamentoUtils.formataArray(req.body);
+        const nomeClinica = req.body.nome_clinica.split('(')[0];
+        let clinicaId     = '';
+        let verify        = false;
+
+        try {
+
+            const arrClinica = await AgendamentoRepository.getHorario(nomeClinica);
+            verify           = (!arrClinica[0]) ? true : false;
+            clinicaId        = (!arrClinica[0]) ? '' : arrClinica[0].id;
+
+        } catch (error)  {
+            console.error(error.message);
+            console.log(error.stack);
+            return res.status(400).json({
+                error: true,
+                msgUser: "Desculpe, ocorreu um erro ao tentar cadastrar agendamento. Verifique se todos os campos foram preenchidos corretamente e tente novamente. Se o problema persistir, entre em contato conosco para assistência.",
+                msgOriginal: "Erro ao cadastrar agendamento. Caiu no catch"
+            });
+        }
+        
+        if (verify) {
+            return res.status(400).json({
+                error: true,
+                msgUser: "Desculpe, ocorreu um erro ao tentar cadastrar agendamento. Verifique se todos os campos foram preenchidos corretamente e tente novamente. Se o problema persistir, entre em contato conosco para assistência.",
+                msgOriginal: "Erro ao cadastrar agendamento. retorno vazio"
+            });
+        }
+
+        const arrDados = await AgendamentoUtils.formataArray(req.body, clinicaId);
 
         try{
 

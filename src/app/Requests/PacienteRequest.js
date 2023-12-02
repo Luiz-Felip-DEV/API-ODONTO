@@ -4,21 +4,12 @@ class PacienteRequest {
 
     getPaciente(req, res, next)
     {
-        if (!req.query.nro_prontuario && !req.query.cpf) {
+        if (!req.query.info) {
  
             return res.status(400).json({
                 error: true,
-                msgUser: 'Passe um parametro com nro_prontuario ou cpf.',
-                msgOriginal: 'Passe um parametro com nro_prontuario ou cpf.'
-            });
-        }
-
-        if (req.query.nro_prontuario && req.query.cpf) {
- 
-            return res.status(400).json({
-                error: true,
-                msgUser: 'Passe somente 1 parametro, sendo nro_prontuario ou cpf.',
-                msgOriginal: 'Passe somente 1 parametro, sendo nro_prontuario ou cpf.'
+                msgUser: 'Passe um parametro com info.',
+                msgOriginal: 'Passe um parametro com info.'
             });
         }
 

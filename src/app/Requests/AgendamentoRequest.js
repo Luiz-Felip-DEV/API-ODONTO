@@ -2,11 +2,11 @@ class AgendamentoRequest {
 
     getDatas(req, res, next)
     {
-        if (!req.query.dia) {
+        if (!req.query.nome_clinica) {
             return res.status(400).json({
                 error: true,
-                msgUser: 'Parametro dia é obrigatorio.',
-                msgOriginal: 'Parametro dia é obrigatorio.'
+                msgUser: 'Parametro nome_clinica é obrigatorio.',
+                msgOriginal: 'Parametro nome_clinica é obrigatorio.'
             });
         }
 
@@ -15,11 +15,11 @@ class AgendamentoRequest {
 
     getHorario(req, res, next)
     {
-        if (!req.query.id_procedimento) {
+        if (!req.query.nome_clinica) {
             return res.status(400).json({
                 error: true,
-                msgUser: 'Parametro id_procedimento é obrigatorio.',
-                msgOriginal: 'Parametro id_procedimento é obrigatorio.'
+                msgUser: 'Parametro nome_clinica é obrigatorio.',
+                msgOriginal: 'Parametro nome_clinica é obrigatorio.'
             });
         }
 
@@ -28,11 +28,11 @@ class AgendamentoRequest {
 
     getAlunosClinica(req, res, next)
     {
-        if (!req.query.periodo) {
+        if (!req.query.nome_clinica) {
             return res.status(400).json({
                 error: true,
-                msgUser: 'Parametro periodo é obrigatorio.',
-                msgOriginal: 'Parametro periodo é obrigatorio.'
+                msgUser: 'Parametro nome_clinica é obrigatorio.',
+                msgOriginal: 'Parametro nome_clinica é obrigatorio.'
             });
         }
 
@@ -42,6 +42,10 @@ class AgendamentoRequest {
     postAgendamento(req, res, next)
     {
         let msg = '';
+
+        if (!req.body.nome_clinica) {
+            msg = 'Parametro nome_clinica é obrigatorio.';
+        }
 
         if (!req.body.horario_consulta) {
             msg = 'Parametro horario_consulta é obrigatorio.';
@@ -53,10 +57,6 @@ class AgendamentoRequest {
 
         if (!req.body.paciente_id) {
             msg = 'Parametro paciente_id é obrigatorio.';
-        }
-
-        if (!req.body.clinica_id) {
-            msg = 'Parametro clinica_id é obrigatorio.';
         }
 
         if (!req.body.aluno_id) {

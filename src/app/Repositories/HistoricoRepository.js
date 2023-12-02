@@ -41,8 +41,6 @@ class HistoricoRepository {
 
         return new Promise((resolve, reject) => {
             conexao.query(sql,(error, result) => {
-                console.log(sql);
-                console.log(error);
                 if (error) return reject(false);
 
                 const row = JSON.parse(JSON.stringify(result));

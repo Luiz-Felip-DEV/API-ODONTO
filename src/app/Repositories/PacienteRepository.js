@@ -1,16 +1,13 @@
 import conexao from "../DataBase/conexao.js";
-import UserUtils from "../Utils/UserUtils.js";
 
 class PacienteRepository {
 
-    async getPaciente(nro_prontuario, cpf)
+    async getPaciente(info)
     {
-        const verificacao = (!nro_prontuario) ? 'cpf = ?' : 'nro_prontuario = ?';
-        const variavel    = (!nro_prontuario) ? UserUtils.formatarCpf(cpf) : nro_prontuario;
-        const sql         = "SELECT id, nro_prontuario, nome, cpf, DATE_FORMAT(datanasc, '%Y-%m-%d') as data_nascimento, email, telefone, endereco FROM pacientes WHERE " + verificacao;
+        const sql         = "SELECT id, nro_prontuario, nome, cpf, DATE_FORMAT(datanasc, '%Y-%m-%d') as data_nascimento, email, telefone, endereco FROM pacientes WHERE " + info;
     
         return new Promise((resolve, reject) => {
-            conexao.query(sql,variavel,(error, result) => {
+            conexao.query(sql,(error, result) => {
                 if (error) return reject(false);
 
                 const row = JSON.parse(JSON.stringify(result));
