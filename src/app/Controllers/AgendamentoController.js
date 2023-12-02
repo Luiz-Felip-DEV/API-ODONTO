@@ -361,14 +361,22 @@ class AgendamentoController {
 
     async getAgendamento(req, res)
     {
-        const nroProntuario = (req.query.nro_prontuario) ? req.query.nro_prontuario : '';
-        const cpf           = (req.query.cpf) ? UserUtils.formatarCpf(req.query.cpf) : '';
-        let arrAgendamento  = [];
-        let verify          = false;
+        const authHeader = req.headers['authorization'];
+        const token      = authHeader && authHeader.split(" ")[1];
+
+        const info         = req.query.info;
+        const contador     = Object.keys(info.split('NP')).length;
+        let arrAgendamento = [];
+        let verify         = false;
+
+        console.log("TOKEN: " + token);
+        console.log("PARAMETRO: " + info);
+
+        const sql = (contador == 1) ? `T4.cpf = '${UserUtils.formatarCpf(info)}'` : `T4.nro_prontuario = '${info}'`;
 
         try {
 
-            arrAgendamento = await AgendamentoRepository.getAgendamento(nroProntuario, cpf);
+            arrAgendamento = await AgendamentoRepository.getAgendamento(sql);
             verify         = (!arrAgendamento[0]) ? true : false;
 
         } catch (error) {
@@ -381,8 +389,6 @@ class AgendamentoController {
             });
         }
 
-        arrAgendamento = await AgendamentoRepository.getAgendamento(nroProntuario, cpf);
-        
         if (verify) {
             return res.status(404).json({
                 error: true,
@@ -391,12 +397,16 @@ class AgendamentoController {
             });
         }
 
-        return res.status(200).json({
+        const ObjReturn = {
             error: false,
             msgUser: null,
             msgOriginal: null,
             result: arrAgendamento
-        });
+        };
+
+        console.log("OBJETO RETORNO: " + JSON.stringify(ObjReturn))
+
+        return res.status(200).json(ObjReturn);
     }
 
     async getAgendamentoData(req, res)

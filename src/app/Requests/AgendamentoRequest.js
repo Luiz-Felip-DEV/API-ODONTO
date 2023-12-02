@@ -74,6 +74,19 @@ class AgendamentoRequest {
         next();
     }
 
+    getAgendamento(req, res, next)
+    {
+        if (!req.query.info) {
+            return res.status(400).json({
+                error: true,
+                msgUser: 'Parametro info é obrigatorio.',
+                msgOriginal: 'Parametro info é obrigatorio.'
+            });
+        }
+
+        next();
+    }
+
     statusPagamento(req, res, next)
     {
         let msg = '';

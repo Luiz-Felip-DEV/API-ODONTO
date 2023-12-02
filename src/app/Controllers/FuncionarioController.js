@@ -2,6 +2,7 @@ import UserRepository from "../Repositories/FuncionarioRepository.js";
 import UserUtils from "../Utils/UserUtils.js";
 import jwt from 'jsonwebtoken';
 import 'dotenv/config';
+import { json } from "express";
 
 class FuncionarioController {
 
@@ -95,8 +96,13 @@ class FuncionarioController {
 
     async postUser(req, res)
     {
+        const authHeader = req.headers['authorization'];
+        const token      = authHeader && authHeader.split(" ")[1];
 
-        if (UserUtils.RepeatedCPF(req.body.cpf)) {
+        console.log("TOKEN: " + token);
+        console.log("OBJETO: " + JSON.stringify(req.body));
+
+        if (await UserUtils.RepeatedCPF(req.body.cpf)) {
             return res.status(400).json({
                 error: true,
                 msgUser: 'Desculpe, parece que o CPF fornecido já está associado a um cadastro existente. Se precisar criar um novo cadastro, por favor, utilize um CPF diferente ou entre em contato conosco para obter assistência.',
@@ -104,7 +110,7 @@ class FuncionarioController {
             });
         }
 
-        if (UserUtils.RepeatedPhone(req.body.telefone)) {
+        if (await UserUtils.RepeatedPhone(req.body.telefone)) {
             return res.status(400).json({
                 error: true,
                 msgUser: 'Desculpe, o número de telefone fornecido já está associado a um cadastro existente. Se deseja cadastrar um novo usuário, por favor, utilize um número de telefone diferente ou entre em contato conosco para obter assistência.',
@@ -112,7 +118,7 @@ class FuncionarioController {
             });
         }
 
-        if (UserUtils.RepeatedEmail(req.body.email)) {
+        if (await UserUtils.RepeatedEmail(req.body.email)) {
             return res.status(400).json({
                 error: true,
                 msgUser: 'Desculpe, o e-mail fornecido já está associado a um cadastro existente. Se deseja cadastrar um novo usuário, por favor, utilize um endereço de e-mail diferente ou entre em contato conosco para obter assistência.',
@@ -136,12 +142,16 @@ class FuncionarioController {
             });
         }
 
-        return res.status(200).json({
+        const ObjReturn = {
             error: false,
             msgUser: 'Sucesso! O cadastro do paciente foi realizado com êxito',
             msgOriginal: null,
             nro_prontuario: arrDados['nro_prontuario']
-        });
+        };
+
+        console.log("OBJETO RETORNADO: " + JSON.stringify(ObjReturn));
+
+        return res.status(200).json(ObjReturn);
     }
 }
 

@@ -111,20 +111,38 @@ class AgendamentoRepository {
         });
     }
 
-    async getAgendamento(nroProntuario, cpf)
+    async getAgendamento(info)
     {
-        const sql = "SELECT T1.id AS id_agendamento, T4.nro_prontuario, T4.nome, T2.nome AS procedimento,  DATE_FORMAT(T1.data_consulta, '%Y-%m-%d') AS data, T1.horario_consulta horario, T2.turno, T1.status_pagamento, T1.status_consulta , T3.nome AS aluno, T3.cod_user cod_alu " +
-                                                    'FROM agendamento T1 ' + 
-                                                            ' INNER JOIN clinica T2' +
-                                                                ' ON (T1.clinica_id = T2.id)' +
-                                                            ' INNER JOIN funcionario T3' +
-                                                                ' ON (T1.aluno_id = T3.id)' +
-                                                            ' INNER JOIN pacientes T4' +
-                                                                ' ON (T1.paciente_id = T4.id)' +
-                                                            ' WHERE T4.nro_prontuario = ? OR T4.cpf = ?';
+        const sql = "SELECT " +
+                        "MIN(T1.id) AS id_agendamento, " +
+                        "T4.nro_prontuario, " +
+                        "T4.nome, " +
+                        "T2.nome AS procedimento, " +
+                        "DATE_FORMAT(T1.data_consulta, '%Y-%m-%d') AS data, " +
+                        "MIN(T1.horario_consulta) AS horario, " +
+                        "T2.turno, " +
+                        "MIN(T1.status_pagamento) AS status_pagamento, " +
+                        "MIN(T1.status_consulta) AS status_consulta, " +
+                        "T3.nome AS aluno, " +
+                        "T3.cod_user AS cod_alu " +
+                "FROM " +
+                    "agendamento T1 " +
+                        "INNER JOIN clinica T2 ON T1.clinica_id = T2.id " +
+                        "INNER JOIN funcionario T3 ON T1.aluno_id = T3.id " +
+                        "INNER JOIN pacientes T4 ON T1.paciente_id = T4.id " +
+                "WHERE " +
+                    info +
+                " GROUP BY " +
+                    "T4.nro_prontuario, " +
+                    "T4.nome, " +
+                    "T2.nome, " +
+                    "DATE_FORMAT(T1.data_consulta, '%Y-%m-%d'), " +
+                    "T2.turno, " +
+                    "T3.nome, " +
+                    "T3.cod_user ";
 
         return new Promise((resolve, reject) => {
-            conexao.query(sql,[nroProntuario, cpf],(error, result) => {
+            conexao.query(sql,(error, result) => {
                 if (error) return reject(false);
 
                 const row = JSON.parse(JSON.stringify(result));

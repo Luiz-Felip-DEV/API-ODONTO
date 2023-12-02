@@ -5,10 +5,10 @@ class PacienteController {
 
     async getPaciente(req,res)
     { 
-        const info       = req.query.info;
-        const contador   = Object.keys(info.split('NP')).length;
-        let arrDados        = [];
-        let verify          = false;
+        const info      = req.query.info;
+        const contador  = Object.keys(info.split('NP')).length;
+        let arrDados    = [];
+        let verify      = false;
 
         const sql = (contador == 1) ? `cpf = '${UserUtils.formatarCpf(info)}'` : `nro_prontuario = '${info}'`
 
@@ -45,6 +45,12 @@ class PacienteController {
 
     async putPaciente(req,res)
     {
+      const authHeader = req.headers['authorization'];
+      const token      = authHeader && authHeader.split(" ")[1];
+
+      console.log("TOKEN: " + token);
+      console.log("OBJETO: " + JSON.stringify(req.body));
+
       const id       = req.query.id;
       const arrDados = await UserUtils.retornarArrayFormatadoSemPt(req.body);
       let verify     = false;
@@ -71,18 +77,28 @@ class PacienteController {
             msgOriginal: "Nenhum paciente encontrado na tabela pacientes com o id " + id + "."
          });
       }
-        
-      return res.status(200).json({
+
+        const arrReturn = {
           error: false,
           msgUser: "Sucesso! Os dados do paciente foram atualizados com êxito.",
           msgOriginal: null
-      });
+      };
+
+      console.log("OBJETO RETORNADO: " + JSON.stringify(arrReturn));
+        
+      return res.status(200).json(arrReturn);
     }
 
     async deletePaciente(req,res)
     {
+      const authHeader = req.headers['authorization'];
+      const token      = authHeader && authHeader.split(" ")[1];
+
       const id    = req.query.id;
       let verify  = false;
+
+      console.log("TOKEN: " + token);
+      console.log("PARAMETRO: " + id);
 
       try {
 
@@ -107,11 +123,15 @@ class PacienteController {
         });
       }
 
-      return res.status(200).json({
+      const arrResult = {
         error: false,
         msgUser: "Sucesso! Os dados do paciente foram deletados com êxito.",
         msgOriginal: null
-      });
+      };
+
+      console.log("OBJETO RETORNO: " + JSON.stringify(arrResult));
+
+      return res.status(200).json(arrResult);
     }
 }
 
