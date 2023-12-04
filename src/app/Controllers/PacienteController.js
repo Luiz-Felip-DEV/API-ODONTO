@@ -36,7 +36,7 @@ class PacienteController {
       }
 
         return res.status(200).json({
-            error: true,
+            error: false,
             msgUser: null,
             msgOriginal: null,
             result: arrDados
