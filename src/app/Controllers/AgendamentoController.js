@@ -164,7 +164,6 @@ class AgendamentoController {
         }
 
         const turno       = arrClinica[0].turno;
-        const nomeClinica = req.query.nome_clinica;
 
         switch(turno) {
 
@@ -185,14 +184,17 @@ class AgendamentoController {
                 break;
         }
 
+        const ObjHora = {
+            0: horario1,
+            1: horario2,
+            2: horario3
+        };
+        
         return res.status(200).json({
             error: false,
             msgUser: null,
             msgOriginal: null,
-            result: {
-                'nome_clinica': nomeClinica,
-                'horarios': [horario1, horario2, horario3]
-            }
+            result: ObjHora
         });
 
     }
@@ -200,6 +202,7 @@ class AgendamentoController {
     async getAlunosClinica(req, res)
     {
         const nomeClinica = req.query.nome_clinica.split('(')[0];
+        console.log(nomeClinica);
         let arrDados      = [];
         let verify        = false;
 
@@ -214,7 +217,7 @@ class AgendamentoController {
             return res.status(400).json({
                 error: true,
                 msgUser: 'Desculpe, ocorreu um erro ao tentar buscar alunos. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.',
-                msgOriginal: 'Nenhum aluno encontrado na tabela funcionario com periodo: ' + periodo
+                msgOriginal: 'Nenhum aluno encontrado na tabela funcionario'
             });
         }
         
@@ -222,7 +225,7 @@ class AgendamentoController {
             return res.status(404).json({
                 error: true,
                 msgUser: 'Desculpe, não encontramos nenhum aluno. Tente Novamente. Se o problema persistir, entre em contato conosco para assistência.',
-                msgOriginal: 'Nenhum aluno encontrado na tabela funcionario com periodo: ' + periodo
+                msgOriginal: 'Nenhum aluno encontrado na tabela funcionario'
             });
         }
 
